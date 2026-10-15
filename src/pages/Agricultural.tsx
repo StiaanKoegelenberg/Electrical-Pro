@@ -16,6 +16,7 @@ const Agricultural = () => (
       "Cold-room & pack-house electrics",
       "Standby generator integration",
       "Surge & lightning protection",
+      "Cable Fault Location",
     ]}
   />
 );

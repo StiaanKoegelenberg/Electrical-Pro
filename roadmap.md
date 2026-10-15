@@ -1,8 +1,11 @@
 # Roadmap
 
 ## Open
-- [ ] Commercial page "About this service": remove "hands over with full Certificates of Compliance" and "safety-first approach" (image-12)
-- [ ] image-13 change — read and apply
+(none)
+
+## Done
+- [x] Commercial "About this service": removed the Certificates of Compliance handover line and "safety-first approach"
+- [x] Agricultural "What we offer": added Cable Fault Location
 
 ## Done
 - [x] Featured solar paragraph stops at "keep the lights on"; "10-Yr Workmanship" badge removed
