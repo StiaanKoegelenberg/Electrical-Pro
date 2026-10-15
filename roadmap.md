@@ -1,7 +1,7 @@
 # Roadmap
 
 ## Open
-- [ ] image-16 change — read and apply
+- [ ] image-17 change — read and apply
 
 ## Done
 - [x] Featured solar paragraph stops at "keep the lights on"; "10-Yr Workmanship" badge removed
