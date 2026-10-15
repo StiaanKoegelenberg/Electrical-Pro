@@ -13,6 +13,7 @@ interface ServicePageLayoutProps {
   intro: string;
   image: string;
   offerings: string[];
+  rentals?: string[];
   body: string;
   accent?: string;
 }
@@ -23,6 +24,7 @@ export const ServicePageLayout = ({
   intro,
   image,
   offerings,
+  rentals,
   body,
 }: ServicePageLayoutProps) => {
   useEffect(() => {
@@ -89,6 +91,23 @@ export const ServicePageLayout = ({
                 </li>
               ))}
             </ul>
+            {rentals && rentals.length > 0 && (
+              <>
+                <div className="mt-8 font-display text-lg font-bold uppercase text-foreground">
+                  Rentals:
+                </div>
+                <ul className="mt-4 space-y-4">
+                  {rentals.map((r) => (
+                    <li key={r} className="flex items-start gap-3">
+                      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-electric mt-0.5">
+                        <Check className="h-3.5 w-3.5 text-white" strokeWidth={3} />
+                      </div>
+                      <span className="text-foreground">{r}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
             <div className="mt-8 pt-6 border-t border-border text-sm text-muted-foreground">
               Need something not listed?{" "}
               <Link to="/#contact" className="text-accent font-semibold hover:underline">
