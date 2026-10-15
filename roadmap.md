@@ -1,7 +1,7 @@
 # Roadmap
 
 ## Open
-- [ ] image-17 change — read and apply
+- [ ] image-18 change — read and apply
 
 ## Done
 - [x] Featured solar paragraph stops at "keep the lights on"; "10-Yr Workmanship" badge removed
@@ -10,3 +10,4 @@
 - [x] Agricultural "What we offer": added Cable Fault Location, Variable Speed Drives (VSDs), Device Remote Control, Power Analysis and Power Factor Correction
 - [x] Agricultural: "Three-phase motor & pump controls" → "Motors/gearboxes & Pump controls"
 - [x] Agricultural: added Rentals group (Ditch Witch for trenching, Cherry Pickers)
+- [x] Agricultural: final combined list confirmed live
