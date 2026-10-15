@@ -1,7 +1,7 @@
 # Roadmap
 
 ## Open
-- [ ] image-18 change — read and apply
+- [ ] image-18: Agricultural "About this service" ends with "tough and serviceable." — applying now
 
 ## Done
 - [x] Featured solar paragraph stops at "keep the lights on"; "10-Yr Workmanship" badge removed
