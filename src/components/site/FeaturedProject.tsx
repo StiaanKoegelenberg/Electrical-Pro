@@ -33,13 +33,11 @@ export const FeaturedProject = () => {
             <p className="mt-6 text-lg text-white/80 max-w-xl">
               From single-home rooftop systems to large commercial arrays, our EP
               Solar division designs and installs grid-tied and hybrid systems
-              that pay for themselves and keep the lights on through any
-              load-shedding storm.
+              that pay for themselves and keep the lights on.
             </p>
-            <div className="mt-8 grid grid-cols-3 gap-6 max-w-md">
+            <div className="mt-8 grid grid-cols-2 gap-6 max-w-xs">
               {[
                 ["Tier-1", "Panels"],
-                ["10-Yr", "Workmanship"],
                 ["Hybrid", "& Backup"],
               ].map(([k, v]) => (
                 <div key={k}>
