@@ -7,7 +7,7 @@ const Commercial = () => (
     title="Commercial electrical contracting"
     intro="Reliable, compliant electrical work for offices, retail, hospitality and industrial sites — delivered on time and to the highest safety standards."
     image={img}
-    body={`We've wired everything from boutique cafés to large industrial fit-outs. Our team works efficiently around your operations, documents everything properly, and hands over with full Certificates of Compliance.\n\nWhether it's a new build, refurbishment, or ongoing maintenance contract, we bring the same disciplined, safety-first approach.`}
+    body={`We've wired everything from boutique cafés to large industrial fit-outs. Our team works efficiently around your operations and documents everything properly.\n\nWhether it's a new build, refurbishment, or ongoing maintenance contract, we bring the same disciplined approach.`}
     offerings={[
       "New commercial installations & fit-outs",
       "Distribution boards & main switchboards",
