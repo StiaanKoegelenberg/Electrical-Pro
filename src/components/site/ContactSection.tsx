@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Send, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -67,6 +67,35 @@ export const ContactSection = () => {
                 </div>
               ))}
             </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="mt-8 flex items-center gap-4 rounded-xl border border-accent/60 bg-accent/5 p-4 shadow-glow"
+            >
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-accent/40 bg-accent/10">
+                <Zap className="h-7 w-7 text-accent" />
+              </div>
+              <div className="flex-1">
+                <div className="text-sm font-bold uppercase tracking-wider text-accent">
+                  24 Hour Emergency Services
+                </div>
+                <p className="mt-1 text-sm text-white/80 leading-snug">
+                  Available 24/7 — we're here when you need us most.
+                </p>
+              </div>
+              <div
+                className="hidden sm:flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-accent text-accent"
+                aria-hidden="true"
+              >
+                <div className="text-center leading-none">
+                  <div className="font-display text-sm font-bold">24</div>
+                  <div className="text-[8px] font-semibold uppercase tracking-wider">Hours</div>
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
 
           <motion.form
