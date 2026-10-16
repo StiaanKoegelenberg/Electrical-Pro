@@ -7,7 +7,7 @@ const Residential = () => (
     title="Wiring your home for the future"
     intro="Safe, neat, certified residential electrical work — from small repairs to full home rewires, smart home installs and home solar."
     image={img}
-    body={`Your home should be safe, comfortable and ready for whatever you plug into it. We help homeowners modernise older wiring, plan additions properly, and add smart features without the chaos.\n\nEverything we do is fully compliant and signed off with a Certificate of Compliance — peace of mind for you and for any future sale.`}
+    body={`Your home should be safe, comfortable and ready for whatever you plug into it. We help homeowners modernise older wiring, plan additions properly, and add smart features without the chaos.\n\nEverything we do is fully compliant for your peace of mind.`}
     offerings={[
       "New home wiring & extensions",
       "Rewires & DB board upgrades",
