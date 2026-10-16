@@ -10,7 +10,7 @@ const features = [
   {
     icon: ShieldCheck,
     title: "Safety First",
-    desc: "Fully certified, COC-compliant work with a meticulous safety culture on every site.",
+    desc: "Fully certified and COC compliant work.",
   },
   {
     icon: Wrench,
@@ -40,7 +40,7 @@ export const WhyUs = () => {
             <p className="mt-6 text-lg text-muted-foreground">
               When you work with Electrical Pro, you're working with a team that
               treats your project like their own. We deliver work that's safe,
-              compliant, and built to last — every single time.
+              compliant, and built to last.
             </p>
           </div>
 
