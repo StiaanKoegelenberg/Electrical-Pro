@@ -6,6 +6,7 @@ import commercialImg from "@/assets/service-commercial.jpg";
 import agriImg from "@/assets/service-agricultural.jpg";
 import agriVideo from "@/assets/agricultural.mp4.asset.json";
 import residentialImg from "@/assets/service-residential.jpg";
+import { trackSpotlight } from "@/lib/spotlight";
 
 const services = [
   {
@@ -72,10 +73,12 @@ export const ServicesGrid = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
+              onMouseMove={trackSpotlight}
+              className="group relative rounded-2xl"
             >
               <Link
                 to={s.to}
-                className="group block relative overflow-hidden rounded-2xl shadow-card hover:shadow-elevated transition-smooth h-[420px]"
+                className="block relative overflow-hidden rounded-2xl shadow-card hover:shadow-elevated transition-smooth h-[420px]"
               >
                 {s.video ? (
                   <video
@@ -111,6 +114,9 @@ export const ServicesGrid = () => {
                   </div>
                 </div>
               </Link>
+
+              {/* Outside the Link's overflow-hidden so the edge glow can bloom past the card */}
+              <div className="spotlight-border pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.div>
           ))}
         </div>

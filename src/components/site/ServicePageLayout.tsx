@@ -73,7 +73,7 @@ export const ServicePageLayout = ({
               {body}
             </p>
             <Button asChild variant="hero" size="lg" className="mt-8">
-              <a href="#contact">Request a Quote <ArrowRight className="ml-1 h-5 w-5" /></a>
+              <a href="#quote">Request a Quote <ArrowRight className="ml-1 h-5 w-5" /></a>
             </Button>
           </div>
 
@@ -110,7 +110,7 @@ export const ServicePageLayout = ({
             )}
             <div className="mt-8 pt-6 border-t border-border text-sm text-muted-foreground">
               Need something not listed?{" "}
-              <Link to="/#contact" className="text-accent font-semibold hover:underline">
+              <Link to="/#quote" className="text-accent font-semibold hover:underline">
                 Just ask →
               </Link>
             </div>

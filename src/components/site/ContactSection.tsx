@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { WaveShine } from "./WaveShine";
 
 export const ContactSection = () => {
   const { toast } = useToast();
@@ -99,12 +100,13 @@ export const ContactSection = () => {
           </motion.div>
 
           <motion.form
+            id="quote"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
             onSubmit={handleSubmit}
-            className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 shadow-elevated"
+            className="scroll-mt-28 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 shadow-elevated"
           >
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
@@ -134,8 +136,9 @@ export const ContactSection = () => {
               <label className="text-xs uppercase tracking-wider text-white/60 mb-2 block">Message</label>
               <Textarea required rows={5} className="bg-white/5 border-white/15 text-white placeholder:text-white/30" placeholder="Tell us about your project..." />
             </div>
-            <Button type="submit" variant="hero" size="lg" className="mt-6 w-full" disabled={submitting}>
+            <Button type="submit" variant="hero" size="lg" className="relative mt-6 w-full overflow-hidden" disabled={submitting}>
               {submitting ? "Sending..." : <>Send Message <Send className="ml-1 h-4 w-4" /></>}
+              <WaveShine />
             </Button>
           </motion.form>
         </div>

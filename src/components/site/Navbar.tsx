@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Zap, Sun, Building2, Tractor, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/logo.png";
 
 const navLinks = [
-  { label: "Home", to: "/" },
-  { label: "Solar", to: "/solar" },
-  { label: "Commercial", to: "/commercial" },
-  { label: "Agricultural", to: "/agricultural" },
-  { label: "Residential", to: "/residential" },
+  { label: "Home", to: "/", icon: Zap },
+  { label: "Solar", to: "/solar", icon: Sun },
+  { label: "Commercial", to: "/commercial", icon: Building2 },
+  { label: "Agricultural", to: "/agricultural", icon: Tractor },
+  { label: "Residential", to: "/residential", icon: Home },
 ];
 
 export const Navbar = () => {
@@ -51,7 +51,7 @@ export const Navbar = () => {
               key={l.to}
               to={l.to}
               className={cn(
-                "px-4 py-2 text-sm font-semibold uppercase tracking-wider transition-smooth rounded-md",
+                "px-3 xl:px-4 py-2 text-sm font-semibold uppercase tracking-wider transition-smooth rounded-md",
                 pathname === l.to
                   ? "text-accent"
                   : "text-white/80 hover:text-white hover:bg-white/5"
@@ -60,8 +60,8 @@ export const Navbar = () => {
               {l.label}
             </Link>
           ))}
-          <Button asChild variant="hero" size="default" className="ml-3">
-            <a href="/#contact">Get a Quote</a>
+          <Button asChild variant="hero" size="default" className="ml-2 xl:ml-3">
+            <a href="/#quote">Get a Quote</a>
           </Button>
         </nav>
 
@@ -75,25 +75,29 @@ export const Navbar = () => {
       </div>
 
       {open && (
-        <div className="lg:hidden bg-brand-navy-deep border-t border-white/10">
-          <div className="container py-4 flex flex-col gap-1">
-            {navLinks.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                className={cn(
-                  "px-4 py-3 text-sm font-semibold uppercase tracking-wider rounded-md",
-                  pathname === l.to
-                    ? "text-accent bg-white/5"
-                    : "text-white/80 hover:bg-white/5"
-                )}
-              >
-                {l.label}
-              </Link>
-            ))}
-            <Button asChild variant="hero" className="mt-2">
-              <a href="/#contact">Get a Quote</a>
-            </Button>
+        // Full-width list on phones; a dropdown card under the menu button on tablets
+        <div className="lg:hidden bg-brand-navy-deep border-t border-white/10 md:absolute md:inset-x-0 md:top-full md:bg-transparent md:border-0 md:pointer-events-none">
+          <div className="container py-4 md:pt-2 md:flex md:justify-end">
+            <div className="flex flex-col gap-1 md:w-80 md:pointer-events-auto md:rounded-2xl md:border md:border-white/10 md:bg-brand-navy-deep/95 md:backdrop-blur-md md:p-3 md:shadow-elevated">
+              {navLinks.map((l) => (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  className={cn(
+                    "flex items-center gap-3 px-4 py-3 text-sm font-semibold uppercase tracking-wider rounded-lg transition-smooth",
+                    pathname === l.to
+                      ? "text-accent bg-white/5"
+                      : "text-white/80 hover:text-white hover:bg-white/5"
+                  )}
+                >
+                  <l.icon className="h-4 w-4 shrink-0 opacity-80" />
+                  {l.label}
+                </Link>
+              ))}
+              <Button asChild variant="hero" size="lg" className="mt-2">
+                <a href="/#quote">Get a Quote</a>
+              </Button>
+            </div>
           </div>
         </div>
       )}

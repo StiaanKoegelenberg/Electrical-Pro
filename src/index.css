@@ -122,4 +122,52 @@
   .shadow-card { box-shadow: var(--shadow-card); }
   .transition-smooth { transition: var(--transition-smooth); }
   .text-balance { text-wrap: balance; }
+
+  /* Travel for WaveShine: the 280px band sits in the middle of a full-width layer, so ±(50% + 160px)
+     carries it and its bloom fully off each side. Screen blending brightens the button like a
+     reflection instead of greying it. */
+  .btn-shine {
+    mix-blend-mode: screen;
+    animation: btn-shine 3s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn-shine { display: none; }
+  }
+
+  /* Glow for the stats pulse; its timing lives in Stats.tsx */
+  .pulse-shine {
+    filter: drop-shadow(0 0 2px hsl(var(--accent-glow))) drop-shadow(0 0 8px hsl(var(--accent-glow) / 0.8));
+  }
+
+  /* Cursor-following edge glow; parent sets --spot-x / --spot-y.
+     Override --spot-color (HSL triplet) and --spot-size per use.
+     The ring is drawn on ::before and masked to the border; the bloom sits on the element itself,
+     because a filter on the masked layer would be masked away with it. */
+  .spotlight-border {
+    filter: drop-shadow(0 0 3px hsl(var(--spot-color, var(--accent-glow)) / 0.9))
+      drop-shadow(0 0 10px hsl(var(--spot-color, var(--accent-glow)) / 0.55));
+  }
+  .spotlight-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: radial-gradient(
+      var(--spot-size, 220px) circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      hsl(0 0% 100%),
+      hsl(var(--spot-color, var(--accent-glow))) 20%,
+      hsl(var(--spot-color, var(--accent-glow)) / 0.45) 45%,
+      transparent 70%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+  }
+}
+
+@keyframes btn-shine {
+  0%, 10% { transform: translateX(calc(-50% - 160px)); }
+  90%, 100% { transform: translateX(calc(50% + 160px)); }
 }
