@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import logo from "@/assets/logo.png";
+import { EMAIL, PHONE } from "@/lib/contact";
 
 export const Footer = () => {
   return (
@@ -35,8 +36,8 @@ export const Footer = () => {
               Contact
             </div>
             <ul className="space-y-2 text-sm text-white/60">
-              <li>+27 (0) 44 000 0000</li>
-              <li>info@electricalpro.co.za</li>
+              <li><a href={PHONE.href} className="hover:text-accent transition-smooth">{PHONE.display}</a></li>
+              <li><a href={`mailto:${EMAIL}`} className="hover:text-accent transition-smooth">{EMAIL}</a></li>
               <li>Garden Route, ZA</li>
               <li>Mon–Fri 07:30–17:00</li>
             </ul>

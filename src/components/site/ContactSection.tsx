@@ -5,23 +5,43 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { WaveShine } from "./WaveShine";
+import { EMAIL, PHONE } from "@/lib/contact";
+
+// Emails the enquiry to the office. PHP only runs on the live hosting, so in local dev every send
+// ends in the "didn't send" message.
+const FORM_ENDPOINT = "/contact.php";
 
 export const ContactSection = () => {
   const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
     setSubmitting(true);
-    setTimeout(() => {
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(form),
+      });
+      const result = await res.json().catch(() => null);
+      if (!res.ok || !result?.ok) throw new Error("Enquiry not sent");
       toast({
         title: "Thanks — we'll be in touch!",
         description: "Your message has been received. Expect a reply within 1 business day.",
       });
-      (e.target as HTMLFormElement).reset();
+      form.reset();
+    } catch {
+      // Only say an enquiry arrived once the server confirms it, otherwise leads get lost silently
+      toast({
+        variant: "destructive",
+        title: "Your message didn't send",
+        description: `Please call us on ${PHONE.display} or email ${EMAIL}.`,
+      });
+    } finally {
       setSubmitting(false);
-    }, 600);
+    }
   };
 
   return (
@@ -52,8 +72,8 @@ export const ContactSection = () => {
 
             <div className="mt-10 space-y-5">
               {[
-                { icon: Phone, label: "Call us", value: "+27 (0) 44 000 0000" },
-                { icon: Mail, label: "Email", value: "info@electricalpro.co.za" },
+                { icon: Phone, label: "Call us", value: PHONE.display, href: PHONE.href },
+                { icon: Mail, label: "Email", value: EMAIL, href: `mailto:${EMAIL}` },
                 { icon: MapPin, label: "Location", value: "Garden Route, South Africa" },
                 { icon: Clock, label: "Hours", value: "Mon–Fri 07:30 – 17:00" },
               ].map((c) => (
@@ -63,7 +83,13 @@ export const ContactSection = () => {
                   </div>
                   <div>
                     <div className="text-xs uppercase tracking-wider text-white/50">{c.label}</div>
-                    <div className="text-white font-medium mt-0.5">{c.value}</div>
+                    {c.href ? (
+                      <a href={c.href} className="block text-white font-medium mt-0.5 hover:text-accent transition-smooth">
+                        {c.value}
+                      </a>
+                    ) : (
+                      <div className="text-white font-medium mt-0.5">{c.value}</div>
+                    )}
                   </div>
                 </div>
               ))}
@@ -110,21 +136,21 @@ export const ContactSection = () => {
           >
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label className="text-xs uppercase tracking-wider text-white/60 mb-2 block">Name</label>
-                <Input required className="bg-white/5 border-white/15 text-white placeholder:text-white/30" placeholder="Your name" />
+                <label htmlFor="contact-name" className="text-xs uppercase tracking-wider text-white/60 mb-2 block">Name</label>
+                <Input id="contact-name" name="name" autoComplete="name" required className="bg-white/5 border-white/15 text-white placeholder:text-white/30" placeholder="Your name" />
               </div>
               <div>
-                <label className="text-xs uppercase tracking-wider text-white/60 mb-2 block">Phone</label>
-                <Input className="bg-white/5 border-white/15 text-white placeholder:text-white/30" placeholder="+27 ..." />
+                <label htmlFor="contact-phone" className="text-xs uppercase tracking-wider text-white/60 mb-2 block">Phone</label>
+                <Input id="contact-phone" name="phone" type="tel" autoComplete="tel" className="bg-white/5 border-white/15 text-white placeholder:text-white/30" placeholder="+27 ..." />
               </div>
             </div>
             <div className="mt-4">
-              <label className="text-xs uppercase tracking-wider text-white/60 mb-2 block">Email</label>
-              <Input required type="email" className="bg-white/5 border-white/15 text-white placeholder:text-white/30" placeholder="you@email.com" />
+              <label htmlFor="contact-email" className="text-xs uppercase tracking-wider text-white/60 mb-2 block">Email</label>
+              <Input id="contact-email" name="email" required type="email" autoComplete="email" className="bg-white/5 border-white/15 text-white placeholder:text-white/30" placeholder="you@email.com" />
             </div>
             <div className="mt-4">
-              <label className="text-xs uppercase tracking-wider text-white/60 mb-2 block">Service</label>
-              <select className="flex h-10 w-full rounded-md border border-white/15 bg-white/5 px-3 py-2 text-sm text-white">
+              <label htmlFor="contact-service" className="text-xs uppercase tracking-wider text-white/60 mb-2 block">Service</label>
+              <select id="contact-service" name="service" className="flex h-10 w-full rounded-md border border-white/15 bg-white/5 px-3 py-2 text-sm text-white">
                 <option className="bg-brand-navy-deep">EP Solar</option>
                 <option className="bg-brand-navy-deep">Commercial</option>
                 <option className="bg-brand-navy-deep">Agricultural</option>
@@ -133,13 +159,25 @@ export const ContactSection = () => {
               </select>
             </div>
             <div className="mt-4">
-              <label className="text-xs uppercase tracking-wider text-white/60 mb-2 block">Message</label>
-              <Textarea required rows={5} className="bg-white/5 border-white/15 text-white placeholder:text-white/30" placeholder="Tell us about your project..." />
+              <label htmlFor="contact-message" className="text-xs uppercase tracking-wider text-white/60 mb-2 block">Message</label>
+              <Textarea id="contact-message" name="message" required rows={5} className="bg-white/5 border-white/15 text-white placeholder:text-white/30" placeholder="Tell us about your project..." />
             </div>
-            <Button type="submit" variant="hero" size="lg" className="relative mt-6 w-full overflow-hidden" disabled={submitting}>
+            {/* Hidden from people; spam bots fill in every field, and contact.php drops anything with this one filled */}
+            <input type="text" name="website" autoComplete="off" className="hidden" />
+            <Button
+              type="submit"
+              variant="hero"
+              size="lg"
+              // Stronger blue glow on hover in place of the default dark shadow
+              className="relative mt-6 w-full overflow-hidden hover:!shadow-[0_12px_44px_-8px_hsl(200_100%_60%_/_0.7)]"
+              disabled={submitting}
+            >
               {submitting ? "Sending..." : <>Send Message <Send className="ml-1 h-4 w-4" /></>}
-              <WaveShine />
+              <span aria-hidden="true" className="orbit-rim pointer-events-none absolute inset-0 rounded-[inherit]" />
             </Button>
+            <p className="mt-4 text-center text-xs text-white/50">
+              We only use your details to reply to your enquiry.
+            </p>
           </motion.form>
         </div>
       </div>

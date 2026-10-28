@@ -1,0 +1,40 @@
+# Apache settings for the live site on xneelo. Vite copies this file into dist/ on every build; upload
+# it with everything else (FTP clients often hide files whose names start with a dot).
+
+RewriteEngine On
+
+# One address for every page: https, without www
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+# Addresses from the old WordPress site, so search results and bookmarks land on the right page
+RewriteCond %{QUERY_STRING} (^|&)page_id=572(&|$)
+RewriteRule ^$ /solar? [R=301,L]
+RewriteCond %{QUERY_STRING} (^|&)page_id=58(&|$)
+RewriteRule ^$ /commercial? [R=301,L]
+RewriteCond %{QUERY_STRING} (^|&)page_id=227(&|$)
+RewriteRule ^$ /agricultural? [R=301,L]
+RewriteCond %{QUERY_STRING} (^|&)page_id=21(&|$)
+RewriteRule ^$ /residential? [R=301,L]
+RewriteRule ^ep-solar/?$ /solar [R=301,L]
+RewriteRule ^elementor-39/?$ /agricultural [R=301,L]
+RewriteRule ^elementor-21/?$ /residential [R=301,L]
+RewriteRule ^services/?$ /#services [R=301,L,NE]
+RewriteRule ^sample-page/?$ /#contact [R=301,L,NE]
+RewriteRule ^(solar|commercial|agricultural|residential)/$ /$1 [R=301,L]
+
+# The app in index.html draws each page itself. Keep this list in step with the routes in src/App.tsx.
+RewriteRule ^(solar|commercial|agricultural|residential)$ /index.html [L]
+
+# Any other address that isn't a real file gets the app's "page not found" screen, sent with a real
+# 404 status so search engines drop the old WordPress addresses
+ErrorDocument 404 /index.html
+
+# Browsers check for a new index.html on every visit, so a fresh upload shows up straight away
+<IfModule mod_headers.c>
+  <Files "index.html">
+    Header set Cache-Control "no-cache"
+  </Files>
+</IfModule>

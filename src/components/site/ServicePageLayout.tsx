@@ -1,11 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { usePageMeta } from "@/hooks/use-page-meta";
+import { glideToHash } from "@/lib/scroll";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { ContactSection } from "./ContactSection";
+import { cn } from "@/lib/utils";
 
 interface ServicePageLayoutProps {
   eyebrow: string;
@@ -27,6 +30,9 @@ export const ServicePageLayout = ({
   rentals,
   body,
 }: ServicePageLayoutProps) => {
+  usePageMeta(`${title} | Electrical Pro`, intro);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -37,8 +43,21 @@ export const ServicePageLayout = ({
 
       {/* Hero */}
       <section className="relative pt-32 pb-20 lg:pt-44 lg:pb-32 overflow-hidden">
-        <div className="absolute inset-0">
-          <img src={image} alt={title} className="h-full w-full object-cover" />
+        {/* Navy until the photo arrives, then the photo fades in rather than popping in on a first visit.
+            A cached photo is already complete when it mounts and shows straight away. */}
+        <div className="absolute inset-0 bg-brand-navy-deep">
+          <img
+            ref={(el) => {
+              if (el?.complete && el.naturalWidth > 0) setImageLoaded(true);
+            }}
+            src={image}
+            alt={title}
+            onLoad={() => setImageLoaded(true)}
+            className={cn(
+              "h-full w-full object-cover transition-[opacity,transform] duration-1000 ease-out motion-reduce:transition-none",
+              imageLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"
+            )}
+          />
           <div className="absolute inset-0 bg-gradient-to-r from-brand-navy-deep via-brand-navy-deep/80 to-brand-navy-deep/30" />
         </div>
         <div className="container relative">
@@ -73,7 +92,7 @@ export const ServicePageLayout = ({
               {body}
             </p>
             <Button asChild variant="hero" size="lg" className="mt-8">
-              <a href="#quote">Request a Quote <ArrowRight className="ml-1 h-5 w-5" /></a>
+              <a href="#quote" onClick={glideToHash}>Request a Quote <ArrowRight className="ml-1 h-5 w-5" /></a>
             </Button>
           </div>
 
@@ -110,7 +129,7 @@ export const ServicePageLayout = ({
             )}
             <div className="mt-8 pt-6 border-t border-border text-sm text-muted-foreground">
               Need something not listed?{" "}
-              <Link to="/#quote" className="text-accent font-semibold hover:underline">
+              <Link to="/#quote" onClick={glideToHash} className="text-accent font-semibold hover:underline">
                 Just ask →
               </Link>
             </div>

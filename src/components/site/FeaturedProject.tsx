@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -47,9 +48,9 @@ export const FeaturedProject = () => {
               ))}
             </div>
             <Button asChild variant="hero" size="lg" className="mt-10">
-              <a href="/solar">
+              <Link to="/solar">
                 Explore EP Solar <ArrowRight className="ml-1 h-5 w-5" />
-              </a>
+              </Link>
             </Button>
           </motion.div>
         </div>

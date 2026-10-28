@@ -3,6 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- The site has its own dark mode (navbar switch); stop browsers' "force dark pages" modes (e.g. Opera)
+         darkening the light one. Dark mode sets color-scheme: dark in index.css. -->
+    <meta name="color-scheme" content="only light" />
+    <!-- Apply a saved dark-mode choice before the first paint, so dark-mode visitors don't see a white flash -->
+    <script>
+      try { if (localStorage.getItem("theme") === "dark") document.documentElement.classList.add("dark"); } catch (e) {}
+    </script>
     <title>Electrical Pro | Garden Route Electrical Contractors &amp; Solar</title>
     <meta name="description" content="Electrical Pro — three decades of expertise serving the Garden Route. Solar, commercial, agricultural &amp; residential electrical services by Danny Farnham and Tim Toovey.">
     <meta name="author" content="Electrical Pro" />
@@ -20,8 +27,8 @@
   <meta name="twitter:title" content="Electrical Pro | Garden Route Electrical Contractors &amp; Solar">
   <meta property="og:description" content="Electrical Pro — three decades of expertise serving the Garden Route. Solar, commercial, agricultural &amp; residential electrical services by Danny Farnham and Tim Toovey.">
   <meta name="twitter:description" content="Electrical Pro — three decades of expertise serving the Garden Route. Solar, commercial, agricultural &amp; residential electrical services by Danny Farnham and Tim Toovey.">
-  <meta property="og:image" content="https://storage.googleapis.com/gpt-engineer-file-uploads/MsYyjn5VTKSQ3PsbPNIJxA5XaDv2/social-images/social-1779128150935-cropped-WhatsApp-Image-2024-01-16-at-21.19.31_99da01bd-scaled-1.webp">
-  <meta name="twitter:image" content="https://storage.googleapis.com/gpt-engineer-file-uploads/MsYyjn5VTKSQ3PsbPNIJxA5XaDv2/social-images/social-1779128150935-cropped-WhatsApp-Image-2024-01-16-at-21.19.31_99da01bd-scaled-1.webp">
+  <meta property="og:image" content="https://electricalpro.co.za/og-image.jpg">
+  <meta name="twitter:image" content="https://electricalpro.co.za/og-image.jpg">
 </head>
 
   <body>

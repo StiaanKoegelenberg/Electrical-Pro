@@ -1,0 +1,14 @@
+# Netlify preview only; ignored by the xneelo (Apache) production host.
+# Caps each visitor IP at 40 requests/minute (excess gets HTTP 429) to stop
+# bots draining the free plan's monthly credits. A full browse of the site is ~20 requests.
+# SPA deep links (/solar etc.) are handled first by _redirects.
+[[redirects]]
+  from = "/*"
+  to = "/:splat"
+  status = 200
+  force = true
+
+  [redirects.rate_limit]
+    window_limit = 40
+    window_size = 60
+    aggregate_by = ["ip", "domain"]

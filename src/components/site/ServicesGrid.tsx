@@ -4,7 +4,6 @@ import { ArrowRight, Sun, Building2, Tractor, Home } from "lucide-react";
 import solarImg from "@/assets/service-solar.jpg";
 import commercialImg from "@/assets/service-commercial.jpg";
 import agriImg from "@/assets/service-agricultural.jpg";
-import agriVideo from "@/assets/agricultural.mp4.asset.json";
 import residentialImg from "@/assets/service-residential.jpg";
 import { trackSpotlight } from "@/lib/spotlight";
 
@@ -31,7 +30,6 @@ const services = [
     title: "Agricultural",
     icon: Tractor,
     image: agriImg,
-    video: agriVideo.url,
     blurb:
       "Specialised electrical services for farms and agri-businesses — efficient, reliable and safe.",
     to: "/agricultural",
@@ -74,30 +72,21 @@ export const ServicesGrid = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
               onMouseMove={trackSpotlight}
-              className="group relative rounded-2xl"
+              className="group relative rounded-2xl shadow-card hover:shadow-elevated transition-shadow duration-[400ms]"
             >
+              {/* Rounded with clip-path rather than overflow-hidden: overflow-hidden clips the photo and each
+                  overlay separately, and their soft edges let a hairline of the bright photo show round the card.
+                  clip-path cuts the finished card in one go. It would cut off a shadow too, so that's on the wrapper. */}
               <Link
                 to={s.to}
-                className="block relative overflow-hidden rounded-2xl shadow-card hover:shadow-elevated transition-smooth h-[420px]"
+                className="block relative [clip-path:inset(0_round_1rem)] h-[420px]"
               >
-                {s.video ? (
-                  <video
-                    src={s.video}
-                    poster={s.image}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-smooth duration-700"
-                  />
-                ) : (
-                  <img
-                    src={s.image}
-                    alt={s.title}
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-smooth duration-700"
-                  />
-                )}
+                <img
+                  src={s.image}
+                  alt={s.title}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-smooth duration-700"
+                />
                 <div className={`absolute inset-0 bg-gradient-to-t ${s.accent} mix-blend-multiply opacity-60 group-hover:opacity-40 transition-smooth`} />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-navy-deep via-brand-navy-deep/40 to-transparent" />
 

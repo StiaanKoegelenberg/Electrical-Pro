@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { smoothScrollTo } from "@/lib/scroll";
 import { Navbar } from "@/components/site/Navbar";
 import { Hero } from "@/components/site/Hero";
 import { Stats } from "@/components/site/Stats";
@@ -13,9 +14,10 @@ import { Footer } from "@/components/site/Footer";
 const Index = () => {
   const { hash } = useLocation();
 
-  // The browser looks for #anchors before React renders, so scroll to them ourselves
+  // The browser looks for #anchors before React renders, so glide to them ourselves
   useEffect(() => {
-    if (hash) document.getElementById(hash.slice(1))?.scrollIntoView();
+    const target = hash ? document.getElementById(hash.slice(1)) : null;
+    if (target) smoothScrollTo(target);
   }, [hash]);
 
   return (

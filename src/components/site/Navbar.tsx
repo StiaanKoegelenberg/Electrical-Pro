@@ -3,7 +3,9 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Zap, Sun, Building2, Tractor, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { glideToHash } from "@/lib/scroll";
 import logo from "@/assets/logo.png";
+import { ThemeToggle } from "./ThemeToggle";
 
 const navLinks = [
   { label: "Home", to: "/", icon: Zap },
@@ -46,6 +48,7 @@ export const Navbar = () => {
         </Link>
 
         <nav className="hidden lg:flex items-center gap-1">
+          <ThemeToggle className="mr-2 xl:mr-3" />
           {navLinks.map((l) => (
             <Link
               key={l.to}
@@ -61,17 +64,20 @@ export const Navbar = () => {
             </Link>
           ))}
           <Button asChild variant="hero" size="default" className="ml-2 xl:ml-3">
-            <a href="/#quote">Get a Quote</a>
+            <Link to="/#quote" onClick={glideToHash}>Get a Quote</Link>
           </Button>
         </nav>
 
-        <button
-          className="lg:hidden text-white p-2"
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle menu"
-        >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        <div className="lg:hidden flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            className="text-white p-2"
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Toggle menu"
+          >
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </div>
 
       {open && (
@@ -95,7 +101,15 @@ export const Navbar = () => {
                 </Link>
               ))}
               <Button asChild variant="hero" size="lg" className="mt-2">
-                <a href="/#quote">Get a Quote</a>
+                <Link
+                  to="/#quote"
+                  onClick={(e) => {
+                    setOpen(false);
+                    glideToHash(e);
+                  }}
+                >
+                  Get a Quote
+                </Link>
               </Button>
             </div>
           </div>

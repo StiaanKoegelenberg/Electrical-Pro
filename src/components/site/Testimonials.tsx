@@ -1,28 +1,14 @@
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 
-const testimonials = [
-  {
-    quote:
-      "Electrical Pro installed our solar system on time and on budget. Professional from quote to commissioning — and the system has performed beautifully.",
-    name: "Sarah M.",
-    role: "Homeowner, George",
-  },
-  {
-    quote:
-      "We've used Danny and the team for our farm electrics for over a decade. Reliable, knowledgeable and always solving problems before they become problems.",
-    name: "Pieter v.d. Merwe",
-    role: "Dairy Farmer, Mossel Bay",
-  },
-  {
-    quote:
-      "They handled our entire commercial fit-out with zero fuss. Quality work, well documented, and the COC was sorted without a hitch.",
-    name: "Lisa T.",
-    role: "Operations Manager",
-  },
+// Real client quotes only, used with their permission. The section stays hidden while this is empty.
+const testimonials: { quote: string; name: string; role: string }[] = [
+  // { quote: "…", name: "Client name", role: "Homeowner, George" },
 ];
 
 export const Testimonials = () => {
+  if (testimonials.length === 0) return null;
+
   return (
     <section className="py-24 lg:py-32 bg-background">
       <div className="container">

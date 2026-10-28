@@ -1,8 +1,9 @@
 import { motion, type Variants } from "framer-motion";
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImg from "@/assets/hero-building.jpg";
 import { trackSpotlight } from "@/lib/spotlight";
+import { glideToHash } from "@/lib/scroll";
 
 // Headline lines glide in from the left one after another, like items on a conveyor
 const slideIn: Variants = {
@@ -83,14 +84,14 @@ export const Hero = () => {
             className="mt-10 flex flex-wrap gap-4"
           >
             <Button asChild variant="hero" size="xl">
-              <a href="#quote" onMouseMove={trackSpotlight} className="group relative">
+              <a href="#quote" onClick={glideToHash} onMouseMove={trackSpotlight} className="group relative">
                 Get a Free Quote <ArrowRight className="ml-1 h-5 w-5" />
                 <span className="spotlight-border pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 group-hover:opacity-100 transition-opacity duration-300 [--spot-color:0_0%_100%] [--spot-size:90px]" />
               </a>
             </Button>
             <Button asChild variant="outlineLight" size="xl">
-              <a href="#services" onMouseMove={trackSpotlight} className="group relative">
-                <Phone className="mr-1 h-5 w-5" /> Our Services
+              <a href="#services" onClick={glideToHash} onMouseMove={trackSpotlight} className="group relative">
+                Our Services <ArrowDown className="ml-1 h-5 w-5" />
                 <span className="spotlight-border pointer-events-none absolute -inset-[2px] rounded-[inherit] opacity-0 group-hover:opacity-100 transition-opacity duration-300 [--spot-color:0_0%_100%] [--spot-size:90px]" />
               </a>
             </Button>
