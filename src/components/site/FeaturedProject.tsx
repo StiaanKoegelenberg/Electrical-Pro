@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import featuredImg from "@/assets/featured-solar.jpg";
+import featuredImg from "@/assets/service-solar.jpg";
 
 export const FeaturedProject = () => {
   return (
