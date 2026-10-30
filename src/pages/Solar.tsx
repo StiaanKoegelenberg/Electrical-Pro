@@ -15,7 +15,7 @@ const Solar = () => (
       "Load-shedding backup & UPS systems",
       "System monitoring & remote diagnostics",
       "Maintenance, cleaning & expansions",
-"Site assessments & Return On Investment projections",
+      "Site assessments & Return On Investment projections",
     ]}
   />
 );
