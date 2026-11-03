@@ -10,29 +10,53 @@
     <script>
       try { if (localStorage.getItem("theme") === "dark") document.documentElement.classList.add("dark"); } catch (e) {}
     </script>
-    <title>Electrical Pro | Garden Route Electrical Contractors &amp; Solar</title>
-    <meta name="description" content="Electrical Pro — three decades of expertise serving the Garden Route. Solar, commercial, agricultural &amp; residential electrical services by Danny Farnham and Tim Toovey.">
+    <!-- Filled in for each page from src/lib/page-meta.ts when the site is built (see vite.config.ts) -->
+    <title></title>
+    <meta name="description" content="" />
+    <link rel="canonical" href="" />
+    <meta property="og:url" content="" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:image" content="" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Electrical Pro" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="author" content="Electrical Pro" />
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    
-    
-    <meta property="og:type" content="website" />
-
-    <meta name="twitter:card" content="summary_large_image" />
+    <!-- Business details for Google. The phone number and hours are also on the page itself
+         (src/lib/contact.ts, ContactSection.tsx and Footer.tsx), so change them in all three places. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Electrician",
+        "name": "Electrical Pro",
+        "url": "https://electricalpro.co.za/",
+        "logo": "https://electricalpro.co.za/apple-touch-icon.png",
+        "image": "https://electricalpro.co.za/og-image.jpg",
+        "description": "Solar, commercial, agricultural and residential electrical contractors serving the Garden Route.",
+        "telephone": "+27 44 874 7456",
+        "areaServed": "Garden Route",
+        "address": { "@type": "PostalAddress", "addressRegion": "Western Cape", "addressCountry": "ZA" },
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "07:30",
+          "closes": "17:00"
+        }
+      }
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <meta property="og:title" content="Electrical Pro | Garden Route Electrical Contractors &amp; Solar">
-  <meta name="twitter:title" content="Electrical Pro | Garden Route Electrical Contractors &amp; Solar">
-  <meta property="og:description" content="Electrical Pro — three decades of expertise serving the Garden Route. Solar, commercial, agricultural &amp; residential electrical services by Danny Farnham and Tim Toovey.">
-  <meta name="twitter:description" content="Electrical Pro — three decades of expertise serving the Garden Route. Solar, commercial, agricultural &amp; residential electrical services by Danny Farnham and Tim Toovey.">
-  <meta property="og:image" content="https://electricalpro.co.za/og-image.jpg">
-  <meta name="twitter:image" content="https://electricalpro.co.za/og-image.jpg">
-</head>
+  </head>
 
   <body>
     <div id="root"></div>

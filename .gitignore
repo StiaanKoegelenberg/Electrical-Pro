@@ -25,3 +25,7 @@ dist-ssr
 
 # Full-size original photos; the site uses the resized copies in src/assets
 src/Services images/
+
+# Everything saved from the old WordPress site before it was taken down: its media library (job
+# photos, logo source, videos) and the text of each page
+old-site-media/

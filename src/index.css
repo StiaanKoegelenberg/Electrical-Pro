@@ -23,6 +23,8 @@
     --accent: 210 100% 56%;
     --accent-foreground: 0 0% 100%;
     --accent-glow: 200 100% 60%;
+    /* Deeper electric blue for small text on light backgrounds, where the brand blue is too pale to read */
+    --accent-strong: 210 100% 42%;
 
     /* Brand: amber highlight */
     --highlight: 38 100% 55%;
@@ -90,6 +92,7 @@
     --muted-foreground: 215 20% 70%;
     --accent: 210 100% 56%;
     --accent-foreground: 0 0% 100%;
+    --accent-strong: 210 100% 56%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
     --border: 215 35% 22%;

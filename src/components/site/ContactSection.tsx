@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Clock, Send, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -175,8 +176,9 @@ export const ContactSection = () => {
               {submitting ? "Sending..." : <>Send Message <Send className="ml-1 h-4 w-4" /></>}
               <span aria-hidden="true" className="orbit-rim pointer-events-none absolute inset-0 rounded-[inherit]" />
             </Button>
-            <p className="mt-4 text-center text-xs text-white/50">
-              We only use your details to reply to your enquiry.
+            <p className="mt-4 text-center text-xs text-white/60">
+              We only use your details to reply to your enquiry.{" "}
+              <Link to="/privacy" className="underline underline-offset-2 hover:text-white">Privacy policy</Link>
             </p>
           </motion.form>
         </div>

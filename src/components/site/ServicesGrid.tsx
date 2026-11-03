@@ -51,7 +51,7 @@ export const ServicesGrid = () => {
     <section id="services" className="py-24 lg:py-32 bg-background">
       <div className="container">
         <div className="max-w-2xl mb-16">
-          <div className="text-xs font-semibold uppercase tracking-[0.3em] text-accent mb-3">
+          <div className="text-xs font-semibold uppercase tracking-[0.3em] text-accent-strong mb-3">
             What we do
           </div>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold uppercase text-foreground text-balance">
@@ -85,7 +85,7 @@ export const ServicesGrid = () => {
                   src={s.image}
                   alt={s.title}
                   loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-smooth duration-700"
+                  className="absolute inset-0 h-full w-full object-cover group-hover:scale-110 motion-reduce:group-hover:scale-100 transition-smooth duration-700"
                 />
                 <div className={`absolute inset-0 bg-gradient-to-t ${s.accent} mix-blend-multiply opacity-60 group-hover:opacity-40 transition-smooth`} />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-navy-deep via-brand-navy-deep/40 to-transparent" />

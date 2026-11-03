@@ -1,14 +1,15 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ContactSection } from "@/components/site/ContactSection";
 import { Toaster } from "@/components/ui/toaster";
 
 const fillInAndSend = () => {
   render(
-    <>
+    <MemoryRouter>
       <ContactSection />
       <Toaster />
-    </>,
+    </MemoryRouter>,
   );
   fireEvent.change(screen.getByLabelText("Name"), { target: { value: "Jan Smit" } });
   fireEvent.change(screen.getByLabelText("Email"), { target: { value: "jan@example.com" } });

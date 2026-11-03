@@ -27,7 +27,7 @@ export const Hero = () => {
       <div className="absolute inset-0">
         <img
           src={heroImg}
-          alt="Electrical Pro headquarters at golden hour"
+          alt="The Electrical Pro building"
           width={1920}
           height={1080}
           className="h-full w-full object-cover"
@@ -44,7 +44,7 @@ export const Hero = () => {
             transition={{ duration: 0.6 }}
             className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm px-4 py-1.5 mb-6"
           >
-            <span className="h-2 w-2 rounded-full bg-accent shadow-glow animate-pulse" />
+            <span className="h-2 w-2 rounded-full bg-accent shadow-glow animate-pulse motion-reduce:animate-none" />
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/90">
               Garden Route · Est. 1990s
             </span>

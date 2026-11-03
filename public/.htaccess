@@ -9,32 +9,59 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
 
-# Addresses from the old WordPress site, so search results and bookmarks land on the right page
+# Addresses from the old WordPress site, so search results and bookmarks land on the right page.
+# First its ?page_id= links (QSD drops the old query string).
 RewriteCond %{QUERY_STRING} (^|&)page_id=572(&|$)
-RewriteRule ^$ /solar? [R=301,L]
+RewriteRule ^$ /solar [R=301,L,QSD]
 RewriteCond %{QUERY_STRING} (^|&)page_id=58(&|$)
-RewriteRule ^$ /commercial? [R=301,L]
-RewriteCond %{QUERY_STRING} (^|&)page_id=227(&|$)
-RewriteRule ^$ /agricultural? [R=301,L]
+RewriteRule ^$ /commercial [R=301,L,QSD]
+RewriteCond %{QUERY_STRING} (^|&)page_id=(39|227|424)(&|$)
+RewriteRule ^$ /agricultural [R=301,L,QSD]
 RewriteCond %{QUERY_STRING} (^|&)page_id=21(&|$)
-RewriteRule ^$ /residential? [R=301,L]
+RewriteRule ^$ /residential [R=301,L,QSD]
+RewriteCond %{QUERY_STRING} (^|&)page_id=(390|656)(&|$)
+RewriteRule ^$ /#projects [R=301,L,QSD,NE]
+RewriteCond %{QUERY_STRING} (^|&)page_id=714(&|$)
+RewriteRule ^$ /#services [R=301,L,QSD,NE]
+RewriteCond %{QUERY_STRING} (^|&)page_id=2(&|$)
+RewriteRule ^$ /#contact [R=301,L,QSD,NE]
+RewriteCond %{QUERY_STRING} (^|&)page_id=(864|868|870)(&|$)
+RewriteRule ^$ /privacy [R=301,L,QSD]
+# Then its ordinary addresses
 RewriteRule ^ep-solar/?$ /solar [R=301,L]
-RewriteRule ^elementor-39/?$ /agricultural [R=301,L]
+RewriteRule ^(elementor-39|neomilk)/?$ /agricultural [R=301,L]
 RewriteRule ^elementor-21/?$ /residential [R=301,L]
+RewriteRule ^(lancewood-dairy-1|nikwaflora)/?$ /#projects [R=301,L,NE]
 RewriteRule ^services/?$ /#services [R=301,L,NE]
 RewriteRule ^sample-page/?$ /#contact [R=301,L,NE]
-RewriteRule ^(solar|commercial|agricultural|residential)/$ /$1 [R=301,L]
+RewriteRule ^(privacy-statement|imprint)/?$ /privacy [R=301,L]
+RewriteRule ^disclaimer/?$ /privacy#disclaimer [R=301,L,NE]
+RewriteRule ^(hello-world|test-page)/?$ / [R=301,L]
+RewriteRule ^wp-sitemap.*\.xml$ /sitemap.xml [R=301,L]
+RewriteRule ^(solar|commercial|agricultural|residential|privacy)/$ /$1 [R=301,L]
 
-# The app in index.html draws each page itself. Keep this list in step with the routes in src/App.tsx.
-RewriteRule ^(solar|commercial|agricultural|residential)$ /index.html [L]
+# Each page of the app has its own copy of index.html with that page's title and link-preview image
+# already in it (written at build time; see vite.config.ts). Keep this list in step with the routes in
+# src/App.tsx and the pages in src/lib/page-meta.ts.
+RewriteRule ^(solar|commercial|agricultural|residential|privacy)$ /$1.html [L]
 
 # Any other address that isn't a real file gets the app's "page not found" screen, sent with a real
 # 404 status so search engines drop the old WordPress addresses
 ErrorDocument 404 /index.html
 
-# Browsers check for a new index.html on every visit, so a fresh upload shows up straight away
 <IfModule mod_headers.c>
-  <Files "index.html">
+  # Browsers check for new pages on every visit, so a fresh upload shows up straight away
+  <FilesMatch "\.html$">
     Header set Cache-Control "no-cache"
-  </Files>
+  </FilesMatch>
+  # Files in /assets have a fingerprint of their contents in their names, so a changed file always gets a
+  # new name and browsers can keep these for a year
+  <If "%{REQUEST_URI} =~ m#^/assets/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+</IfModule>
+
+# Compress text files on the way out (harmless if xneelo already does)
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml text/xml application/xml text/plain
 </IfModule>

@@ -44,8 +44,12 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row gap-3 items-center justify-between text-xs text-white/40">
-          <div>© {new Date().getFullYear()} Electrical Pro. All rights reserved.</div>
+        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row gap-3 items-center justify-between text-xs text-white/60">
+          <div>
+            © {new Date().getFullYear()} Electrical Pro. All rights reserved.{" "}
+            <span aria-hidden="true">·</span>{" "}
+            <Link to="/privacy" className="hover:text-accent transition-smooth">Privacy policy</Link>
+          </div>
           <div className="uppercase tracking-wider">Powering the Garden Route</div>
         </div>
       </div>

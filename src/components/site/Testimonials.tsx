@@ -13,7 +13,7 @@ export const Testimonials = () => {
     <section className="py-24 lg:py-32 bg-background">
       <div className="container">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <div className="text-xs font-semibold uppercase tracking-[0.3em] text-accent mb-3">
+          <div className="text-xs font-semibold uppercase tracking-[0.3em] text-accent-strong mb-3">
             What clients say
           </div>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold uppercase text-foreground text-balance">

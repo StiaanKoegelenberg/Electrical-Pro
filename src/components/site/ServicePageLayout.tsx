@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { usePageMeta } from "@/hooks/use-page-meta";
+import { PAGE_META } from "@/lib/page-meta";
 import { glideToHash } from "@/lib/scroll";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
@@ -30,7 +31,8 @@ export const ServicePageLayout = ({
   rentals,
   body,
 }: ServicePageLayoutProps) => {
-  usePageMeta(`${title} | Electrical Pro`, intro);
+  const meta = PAGE_META[useLocation().pathname];
+  usePageMeta(meta?.title ?? `${title} | Electrical Pro`, meta?.description ?? intro);
   const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
@@ -82,7 +84,7 @@ export const ServicePageLayout = ({
       <section className="py-20 lg:py-28">
         <div className="container grid lg:grid-cols-2 gap-12 lg:gap-20">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.3em] text-accent mb-3">
+            <div className="text-xs font-semibold uppercase tracking-[0.3em] text-accent-strong mb-3">
               About this service
             </div>
             <h2 className="font-display text-3xl sm:text-4xl font-bold uppercase text-foreground text-balance">
@@ -129,7 +131,7 @@ export const ServicePageLayout = ({
             )}
             <div className="mt-8 pt-6 border-t border-border text-sm text-muted-foreground">
               Need something not listed?{" "}
-              <Link to="/#quote" onClick={glideToHash} className="text-accent font-semibold hover:underline">
+              <Link to="/#quote" onClick={glideToHash} className="text-accent-strong font-semibold hover:underline">
                 Just ask →
               </Link>
             </div>
