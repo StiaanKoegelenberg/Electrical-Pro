@@ -48,6 +48,10 @@ const traceFrames = (win: number, dash: number): Keyframe[] => [
   { strokeDashoffset: "-1.02", offset: 1 },
 ];
 
+// How far through its run (0 to 1) a streak has just passed the point `at` (0 to 1) of the way along its
+// path. It sets off 0.02 before the path's start and runs until 0.02 past its end, as in traceFrames.
+export const streakPassed = (at: number, dash: number) => (at + dash + 0.02) / (dash + 1.04);
+
 // The streak sliding through a wire's track: across (X) or down (Y)
 const runFrames = (win: number, fade: number, axis: "X" | "Y"): Keyframe[] => {
   const at = (o: number) => `translate${axis}(${-100 + 200 * (o / win)}%)`;
