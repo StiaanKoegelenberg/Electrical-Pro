@@ -2,8 +2,9 @@ import { useEffect, type RefObject } from "react";
 
 // The electrical pulse that runs along a chain of bordered items joined by short wires: a streak of light
 // traces round each item's border, then runs along the wire to the next item, lighting the dot at each
-// end as it passes. Used by the stats strip (Stats.tsx) and the project figures (Projects.tsx); the
-// elements it animates are PulseLayers and Dot in components/site/PulseParts.tsx.
+// end as it passes. Used by the stats strip (Stats.tsx) and the projects' power-flow diagrams
+// (PowerFlow.tsx); the elements it animates are PulseLayers, Dot and DotFlash in
+// components/site/PulseParts.tsx.
 
 // Solid (not translucent) greys, so lines meeting under a dot don't show through or double up
 export const LINE_GREY = "hsl(214 14% 25%)";
@@ -16,11 +17,16 @@ const RUN_FADE = 0.05; // connector pulse fades in/out over this at each end
 
 export interface PulseTimeline {
   cardTime: number;
+  // How long the pulse takes round each item, where they don't all take cardTime
+  cardTimes?: number[];
   cardStarts: number[];
   links: number[];
   linkStarts: number[];
   cycle: number;
 }
+
+// The parts of a timeline that say when each item and link fires, for building one up a piece at a time
+export type PulseParts = Required<Pick<PulseTimeline, "cardStarts" | "cardTimes" | "links" | "linkStarts">>;
 
 // When each piece fires: round item 0, along link 0, round item 1 and so on (a link with no wire drawn
 // for it is just a pause). A new pulse starts either when the previous one is halfway round item
@@ -51,6 +57,8 @@ const traceFrames = (win: number, dash: number): Keyframe[] => [
 // How far through its run (0 to 1) a streak has just passed the point `at` (0 to 1) of the way along its
 // path. It sets off 0.02 before the path's start and runs until 0.02 past its end, as in traceFrames.
 export const streakPassed = (at: number, dash: number) => (at + dash + 0.02) / (dash + 1.04);
+// ...and how far through its run its leading end reaches that point
+export const streakReaches = (at: number, dash: number) => (at + 0.02) / (dash + 1.04);
 
 // The streak sliding through a wire's track: across (X) or down (Y)
 const runFrames = (win: number, fade: number, axis: "X" | "Y"): Keyframe[] => {
@@ -64,13 +72,27 @@ const runFrames = (win: number, fade: number, axis: "X" | "Y"): Keyframe[] => {
   ];
 };
 
+// A dot's colour while the pulse lights it
+export const DOT_LIT = "hsl(200 100% 90%)";
+
 const IDLE_DOT = { backgroundColor: DOT_GREY, transform: "scale(1)", boxShadow: "0 0 0 0 transparent, 0 0 0 0 transparent" };
-const LIT_DOT = { backgroundColor: "hsl(200 100% 90%)", transform: "scale(1.7)", boxShadow: "0 0 4px 1px hsl(200 100% 60%), 0 0 14px 4px hsl(200 100% 60% / 0.6)" };
+const LIT_DOT = { backgroundColor: DOT_LIT, transform: "scale(1.7)", boxShadow: "0 0 4px 1px hsl(200 100% 60%), 0 0 14px 4px hsl(200 100% 60% / 0.6)" };
 const dotFrames = (peak: number, end: number): Keyframe[] => [
   { ...IDLE_DOT, offset: 0, easing: "ease-out" },
   { ...LIT_DOT, offset: peak, easing: "ease-out" },
   { ...IDLE_DOT, offset: end },
   { ...IDLE_DOT, offset: 1 },
+];
+
+// A dot drawn in an svg is lit by a bright copy laid over it (DotFlash in PulseParts.tsx), which grows as
+// it fades in, then shrinks as it fades away, as dotFrames lights an html dot
+const IDLE_FLASH = { opacity: 0, transform: "scale(1)" };
+const LIT_FLASH = { opacity: 1, transform: "scale(1.7)" };
+const flashFrames = (peak: number, end: number): Keyframe[] => [
+  { ...IDLE_FLASH, offset: 0, easing: "ease-out" },
+  { ...LIT_FLASH, offset: peak, easing: "ease-out" },
+  { ...IDLE_FLASH, offset: end },
+  { ...IDLE_FLASH, offset: 1 },
 ];
 
 // Runs every [data-pulse] element's animation from the timeline while the chain is on screen.
@@ -81,7 +103,7 @@ export const usePulse = (rootRef: RefObject<HTMLElement>, timeline: PulseTimelin
   useEffect(() => {
     const root = rootRef.current;
     if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const { cardTime, cardStarts, links, linkStarts, cycle } = timeline;
+    const { cardTime, cardTimes, cardStarts, links, linkStarts, cycle } = timeline;
     const frac = (s: number) => s / cycle;
     let animations: Animation[] = [];
 
@@ -95,14 +117,14 @@ export const usePulse = (rootRef: RefObject<HTMLElement>, timeline: PulseTimelin
         const { pulse, seg, at, dash, axis } = el.dataset;
         const i = Number(el.dataset.i);
         const begin = seg === "card" ? cardStarts[i] : linkStarts[i];
-        const length = seg === "card" ? cardTime : links[i];
+        const length = seg === "card" ? (cardTimes?.[i] ?? cardTime) : links[i];
 
         let frames: Keyframe[];
         let delay = begin;
         if (pulse === "trace") frames = traceFrames(frac(length), Number(dash));
         else if (pulse === "run") frames = runFrames(frac(length), frac(RUN_FADE), axis === "y" ? "Y" : "X");
         else {
-          frames = dotFrames(frac(DOT_PEAK), frac(DOT_END));
+          frames = (pulse === "flash" ? flashFrames : dotFrames)(frac(DOT_PEAK), frac(DOT_END));
           delay = (at === "end" ? begin + length : begin) - DOT_PEAK;
         }
 

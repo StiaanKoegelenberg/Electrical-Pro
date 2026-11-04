@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { DOT_GREY } from "@/lib/pulse";
+import { DOT_GREY, DOT_LIT } from "@/lib/pulse";
 
 // The elements the travelling pulse animates (see lib/pulse.ts). Their data-pulse attributes tell usePulse
 // what each one is and where it sits in the chain.
@@ -46,5 +46,32 @@ export const Dot = ({ index, at, style }: { index: number; at: "start" | "end"; 
     data-at={at}
     className="h-2 w-2 shrink-0 rounded-full"
     style={{ backgroundColor: DOT_GREY, ...style }}
+  />
+);
+
+// For a wire drawn in an svg, its dot is drawn there too, so it sits exactly on the wire: a plain grey
+// circle, and over it this bright copy, which shows as the pulse passes. Its svg wants the pulse-shine glow.
+export const DotFlash = ({
+  index,
+  at,
+  cx,
+  cy,
+  r,
+}: {
+  index: number;
+  at: "start" | "end";
+  cx: number;
+  cy: number;
+  r: number;
+}) => (
+  <circle
+    data-pulse="flash"
+    data-seg="link"
+    data-i={index}
+    data-at={at}
+    cx={cx}
+    cy={cy}
+    r={r}
+    style={{ fill: DOT_LIT, opacity: 0, transformBox: "fill-box", transformOrigin: "center" }}
   />
 );

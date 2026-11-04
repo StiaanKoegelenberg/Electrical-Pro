@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Sun, Building2, Tractor, Home } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import solarImg from "@/assets/service-solar.jpg";
 import commercialImg from "@/assets/service-commercial.jpg";
 import agriImg from "@/assets/service-agricultural.jpg";
@@ -11,7 +11,6 @@ import { TitleSpace } from "./TitleSpace";
 const services = [
   {
     title: "EP Solar",
-    icon: Sun,
     image: solarImg,
     blurb:
       "Cutting-edge solar solutions harnessing Garden Route sunshine for sustainable energy independence.",
@@ -20,7 +19,6 @@ const services = [
   },
   {
     title: "Commercial",
-    icon: Building2,
     image: commercialImg,
     blurb:
       "Expert electrical contracting for commercial projects — reliable, high-quality and efficient service.",
@@ -29,7 +27,6 @@ const services = [
   },
   {
     title: "Agricultural",
-    icon: Tractor,
     image: agriImg,
     blurb:
       "Specialised electrical services for farms and agri-businesses — efficient, reliable and safe.",
@@ -38,7 +35,6 @@ const services = [
   },
   {
     title: "Residential",
-    icon: Home,
     image: residentialImg,
     blurb:
       "Reliable, safe residential electrical work — wiring your home for the future.",
@@ -90,9 +86,6 @@ export const ServicesGrid = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-navy-deep via-brand-navy-deep/40 to-transparent" />
 
                 <div className="relative h-full flex flex-col justify-end p-8">
-                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-white/10 backdrop-blur-md border border-white/20">
-                    <s.icon className="h-6 w-6 text-white" />
-                  </div>
                   <h3 className="font-display text-3xl lg:text-4xl font-bold uppercase text-white">
                     {s.title}
                   </h3>
