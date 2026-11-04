@@ -6,6 +6,7 @@ import commercialImg from "@/assets/service-commercial.jpg";
 import agriImg from "@/assets/service-agricultural.jpg";
 import residentialImg from "@/assets/service-residential.jpg";
 import { trackSpotlight } from "@/lib/spotlight";
+import { TitleSpace } from "./TitleSpace";
 
 const services = [
   {
@@ -51,9 +52,7 @@ export const ServicesGrid = () => {
     <section id="services" className="py-24 lg:py-32 bg-background">
       <div className="container">
         <div className="max-w-2xl mb-16">
-          <div className="text-xs font-semibold uppercase tracking-[0.3em] text-accent-strong mb-3">
-            What we do
-          </div>
+          <TitleSpace />
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold uppercase text-foreground text-balance">
             Specialist services across <span className="text-accent">four sectors</span>
           </h2>

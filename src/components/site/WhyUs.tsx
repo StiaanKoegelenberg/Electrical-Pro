@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ShieldCheck, Award, MapPin, Wrench } from "lucide-react";
+import { TitleSpace } from "./TitleSpace";
 
 const features = [
   {
@@ -30,9 +31,7 @@ export const WhyUs = () => {
       <div className="container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.3em] text-accent-strong mb-3">
-              Why Electrical Pro
-            </div>
+            <TitleSpace />
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold uppercase text-foreground text-balance">
               Built on trust <br />
               <span className="text-accent">Powered by craft</span>

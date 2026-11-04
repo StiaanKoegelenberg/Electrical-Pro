@@ -9,10 +9,10 @@ import { glideToHash } from "@/lib/scroll";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { ContactSection } from "./ContactSection";
+import { TitleSpace } from "./TitleSpace";
 import { cn } from "@/lib/utils";
 
 interface ServicePageLayoutProps {
-  eyebrow: string;
   title: string;
   intro: string;
   image: string;
@@ -23,7 +23,6 @@ interface ServicePageLayoutProps {
 }
 
 export const ServicePageLayout = ({
-  eyebrow,
   title,
   intro,
   image,
@@ -69,9 +68,7 @@ export const ServicePageLayout = ({
             transition={{ duration: 0.6 }}
             className="max-w-2xl"
           >
-            <div className="text-xs font-semibold uppercase tracking-[0.3em] text-accent mb-3">
-              {eyebrow}
-            </div>
+            <TitleSpace />
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold uppercase text-white text-balance">
               {title}
             </h1>
@@ -84,9 +81,7 @@ export const ServicePageLayout = ({
       <section className="py-20 lg:py-28">
         <div className="container grid lg:grid-cols-2 gap-12 lg:gap-20">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.3em] text-accent-strong mb-3">
-              About this service
-            </div>
+            <TitleSpace />
             <h2 className="font-display text-3xl sm:text-4xl font-bold uppercase text-foreground text-balance">
               Built around your needs
             </h2>

@@ -3,7 +3,6 @@ import img from "@/assets/service-residential.jpg";
 
 const Residential = () => (
   <ServicePageLayout
-    eyebrow="Residential"
     title="Wiring your home for the future"
     intro="Safe, neat, certified residential electrical work — from small repairs to full home rewires, smart home installs and home solar."
     image={img}

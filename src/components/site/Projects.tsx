@@ -7,6 +7,7 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 import { LINE_GREY, streakPassed, usePulse, type PulseTimeline } from "@/lib/pulse";
 import { cn } from "@/lib/utils";
 import { Dot, PulseLayers } from "./PulseParts";
+import { TitleSpace } from "./TitleSpace";
 
 // Finished jobs, taken from the case studies on the old website. Only add figures the client has confirmed.
 const projects = [
@@ -461,11 +462,9 @@ export const Projects = () => {
     <section ref={sectionRef} id="projects" className="py-24 lg:py-32 bg-background">
       <div className="container">
         <div className="max-w-2xl mb-16">
-          <div className="text-xs font-semibold uppercase tracking-[0.3em] text-accent-strong mb-3">
-            Our work
-          </div>
+          <TitleSpace />
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold uppercase text-foreground text-balance">
-            Solar that keeps <span className="text-accent">farms running</span>
+            Solar <span className="text-accent">projects</span>
           </h2>
           <p className="mt-5 text-lg text-muted-foreground">
             Two of our agricultural solar installations, built to keep working farms going through
@@ -495,10 +494,10 @@ export const Projects = () => {
                   className="aspect-video w-full object-cover"
                 />
                 <div className="p-6 lg:p-8">
-                  <div className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                  <h3 className="font-display text-3xl font-bold uppercase text-foreground">{p.name}</h3>
+                  <div className="mt-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                     {p.setting}
                   </div>
-                  <h3 className="mt-2 font-display text-3xl font-bold uppercase text-foreground">{p.name}</h3>
                   {/* Across, each pill is its own width. Down, they share the widest one's width, so the
                       wires run straight down their middles */}
                   <ul

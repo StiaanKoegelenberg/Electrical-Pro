@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Footer } from "@/components/site/Footer";
 import { Navbar } from "@/components/site/Navbar";
+import { TitleSpace } from "@/components/site/TitleSpace";
 import { usePageMeta } from "@/hooks/use-page-meta";
 
 const NotFound = () => {
@@ -14,9 +15,7 @@ const NotFound = () => {
       <main className="flex flex-1 items-center bg-gradient-dark pt-32 pb-20 lg:pt-44 lg:pb-32">
         <div className="container">
           <div className="max-w-2xl">
-            <div className="text-xs font-semibold uppercase tracking-[0.3em] text-accent mb-3">
-              Error 404
-            </div>
+            <TitleSpace />
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold uppercase text-white text-balance">
               Page <span className="text-accent">not found</span>
             </h1>

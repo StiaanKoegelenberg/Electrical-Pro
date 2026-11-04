@@ -2,6 +2,7 @@ import { useEffect, type ReactNode } from "react";
 import { useLocation } from "react-router-dom";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
+import { TitleSpace } from "@/components/site/TitleSpace";
 import { usePageMeta } from "@/hooks/use-page-meta";
 import { EMAIL, PHONE } from "@/lib/contact";
 import { PAGE_META } from "@/lib/page-meta";
@@ -45,7 +46,7 @@ const Privacy = () => {
         <section className="bg-gradient-dark pt-32 pb-16 lg:pt-44 lg:pb-20">
           <div className="container">
             <div className="max-w-3xl">
-              <div className="text-xs font-semibold uppercase tracking-[0.3em] text-accent mb-3">Privacy</div>
+              <TitleSpace />
               <h1 className="font-display text-5xl sm:text-6xl font-bold uppercase text-white text-balance">
                 Privacy policy
               </h1>

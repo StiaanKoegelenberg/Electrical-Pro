@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { EMAIL, PHONE } from "@/lib/contact";
 import { smoothScrollTo } from "@/lib/scroll";
+import { TitleSpace } from "./TitleSpace";
 
 // Emails the enquiry to the office. PHP only runs on the live hosting, so in local dev every send
 // ends in the "didn't send" message.
@@ -132,9 +133,7 @@ export const ContactSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="text-xs font-semibold uppercase tracking-[0.3em] text-accent mb-3">
-              Get in touch
-            </div>
+            <TitleSpace />
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold uppercase text-white text-balance">
               Let's power your <span className="text-accent">next project</span>
             </h2>

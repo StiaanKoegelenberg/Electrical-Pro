@@ -3,7 +3,6 @@ import img from "@/assets/service-agricultural.jpg";
 
 const Agricultural = () => (
   <ServicePageLayout
-    eyebrow="Agricultural"
     title="Electrical for farms & agri-businesses"
     intro="Specialist electrical services built for the realities of farm life — robust, weatherproof installations that keep dairies, irrigation and processing running."
     image={img}

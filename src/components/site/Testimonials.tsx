@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
+import { TitleSpace } from "./TitleSpace";
 
 // Real client quotes only, used with their permission. The section stays hidden while this is empty.
 const testimonials: { quote: string; name: string; role: string }[] = [
@@ -13,9 +14,7 @@ export const Testimonials = () => {
     <section className="py-24 lg:py-32 bg-background">
       <div className="container">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <div className="text-xs font-semibold uppercase tracking-[0.3em] text-accent-strong mb-3">
-            What clients say
-          </div>
+          <TitleSpace />
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold uppercase text-foreground text-balance">
             Trusted across the Garden Route
           </h2>

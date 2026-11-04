@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import featuredImg from "@/assets/featured-solar-array.jpg";
+import { TitleSpace } from "./TitleSpace";
 
 export const FeaturedProject = () => {
   return (
@@ -25,9 +26,7 @@ export const FeaturedProject = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="text-xs font-semibold uppercase tracking-[0.3em] text-accent mb-3">
-              Featured
-            </div>
+            <TitleSpace />
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold uppercase text-white text-balance">
               Solar built for the <span className="text-accent">Garden Route sun</span>
             </h2>

@@ -3,7 +3,6 @@ import img from "@/assets/service-solar.jpg";
 
 const Solar = () => (
   <ServicePageLayout
-    eyebrow="EP Solar"
     title="Solar power, built for the Garden Route"
     intro="From single-home rooftops to large commercial arrays, we design and install solar systems that lower bills, reduce reliance on the grid and keep working through load-shedding."
     image={img}

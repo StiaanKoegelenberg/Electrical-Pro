@@ -3,7 +3,6 @@ import img from "@/assets/service-commercial.jpg";
 
 const Commercial = () => (
   <ServicePageLayout
-    eyebrow="Commercial"
     title="Commercial electrical contracting"
     intro="Reliable, compliant electrical work for offices, retail, hospitality and industrial sites — delivered on time and to the highest safety standards."
     image={img}
