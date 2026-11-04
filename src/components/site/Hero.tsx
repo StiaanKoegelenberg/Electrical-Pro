@@ -46,7 +46,7 @@ export const Hero = () => {
           >
             <span className="h-2 w-2 rounded-full bg-accent shadow-glow animate-pulse motion-reduce:animate-none" />
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/90">
-              Garden Route · Est. 1990s
+              Garden Route · Since 1994
             </span>
           </motion.div>
 

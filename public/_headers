@@ -1,2 +1,7 @@
 /*
   X-Robots-Tag: noindex, nofollow
+
+# Files in /assets have a fingerprint of their contents in their names, so browsers can keep them for a
+# year instead of re-checking them on every visit (.htaccess does the same on xneelo)
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

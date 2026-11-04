@@ -13,8 +13,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"Barlow Condensed"', '"Oswald"', "sans-serif"],
-        sans: ['"Inter"', "system-ui", "sans-serif"],
+        display: ['"Big Shoulders Display"', '"Arial Narrow"', "sans-serif"],
+        sans: ['"IBM Plex Sans"', "system-ui", "sans-serif"],
+        // Buttons keep the site's original Inter; index.html loads only the weight they use (600)
+        button: ['"Inter"', "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
