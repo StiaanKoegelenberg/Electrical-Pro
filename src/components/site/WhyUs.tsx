@@ -34,8 +34,8 @@ export const WhyUs = () => {
               Why Electrical Pro
             </div>
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold uppercase text-foreground text-balance">
-              Built on trust. <br />
-              <span className="text-accent">Powered by craft.</span>
+              Built on trust <br />
+              <span className="text-accent">Powered by craft</span>
             </h2>
             <p className="mt-6 text-lg text-muted-foreground">
               When you work with Electrical Pro, you're working with a team that

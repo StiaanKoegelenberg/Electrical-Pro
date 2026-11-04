@@ -52,8 +52,8 @@ export const Hero = () => {
 
           <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase leading-[0.95] text-white text-balance">
             <motion.span custom={0} variants={slideIn} initial="hidden" animate="show" className="block">
-              Three decades of expertise.
-            </motion.span>
+              Three decades of expertise
+            </motion.span>{" "}
             <motion.span
               custom={1}
               variants={slideIn}
@@ -61,7 +61,7 @@ export const Hero = () => {
               animate="show"
               className="block bg-gradient-electric bg-clip-text text-transparent"
             >
-              Lighting the way forward.
+              Lighting the way forward
             </motion.span>
           </h1>
 
