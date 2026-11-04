@@ -5,7 +5,7 @@
 // Where enquiries go. It's also the sender, since the mail server only sends as addresses on this
 // domain; Reply-To is the customer, so hitting reply answers them directly.
 const TO = 'info@electricalpro.co.za';
-const SERVICES = ['EP Solar', 'Commercial', 'Agricultural', 'Residential', 'Other / Not sure'];
+const SERVICES = ['EP Solar', 'Commercial', 'Agricultural', 'Residential', 'Other'];
 
 header('Content-Type: application/json');
 
@@ -35,7 +35,7 @@ if (field('website', 200) !== '') {
 $name = field('name', 100);
 $phone = field('phone', 40);
 $email = field('email', 200);
-$service = in_array($_POST['service'] ?? null, SERVICES, true) ? $_POST['service'] : 'Other / Not sure';
+$service = in_array($_POST['service'] ?? null, SERVICES, true) ? $_POST['service'] : 'Other';
 $message = is_string($_POST['message'] ?? null) ? trim(substr($_POST['message'], 0, 5000)) : '';
 
 if ($name === '' || $message === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {

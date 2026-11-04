@@ -3,14 +3,21 @@ import { MemoryRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ContactSection } from "@/components/site/ContactSection";
 import { Toaster } from "@/components/ui/toaster";
+import { smoothScrollTo } from "@/lib/scroll";
 
-const fillInAndSend = () => {
+// jsdom can't scroll; the form only needs to ask for it
+vi.mock("@/lib/scroll", () => ({ smoothScrollTo: vi.fn() }));
+
+const renderForm = () =>
   render(
     <MemoryRouter>
       <ContactSection />
       <Toaster />
     </MemoryRouter>,
   );
+
+const fillInAndSend = () => {
+  renderForm();
   fireEvent.change(screen.getByLabelText("Name"), { target: { value: "Jan Smit" } });
   fireEvent.change(screen.getByLabelText("Email"), { target: { value: "jan@example.com" } });
   fireEvent.change(screen.getByLabelText("Message"), { target: { value: "Borehole pump quote, please" } });
@@ -28,6 +35,9 @@ describe("contact form", () => {
         disconnect() {}
       },
     );
+    // Its height: "auto" animations (the field messages) also put the scroll position back with
+    // window.scrollTo, which jsdom doesn't have either
+    vi.stubGlobal("scrollTo", vi.fn());
   });
   afterEach(() => vi.unstubAllGlobals());
 
@@ -58,5 +68,31 @@ describe("contact form", () => {
     expect(await screen.findByText("Your message didn't send")).toBeInTheDocument();
     expect(screen.getByText(/Please call us on/)).toBeInTheDocument();
     expect(screen.queryByText("Thanks — we'll be in touch!")).not.toBeInTheDocument();
+  });
+
+  it("asks for missing details in its own messages instead of sending", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    renderForm();
+
+    fireEvent.click(screen.getByRole("button", { name: /send message/i }));
+
+    expect(await screen.findByText("Please enter your name")).toBeInTheDocument();
+    expect(screen.getByText("Please enter your email address")).toBeInTheDocument();
+    expect(screen.getByText("Please enter your message")).toBeInTheDocument();
+    expect(fetchMock).not.toHaveBeenCalled();
+    const name = screen.getByLabelText("Name");
+    expect(name).toHaveAttribute("aria-invalid", "true");
+    expect(name).toHaveAccessibleDescription("Please enter your name");
+    expect(name).toHaveFocus();
+    expect(smoothScrollTo).toHaveBeenCalledWith(name);
+
+    // Fixing a field clears its message; an email address that isn't one gets a message of its own
+    fireEvent.change(name, { target: { value: "Jan Smit" } });
+    fireEvent.change(screen.getByLabelText("Email"), { target: { value: "jan@" } });
+    expect(name).toHaveAttribute("aria-invalid", "false");
+    expect(
+      await screen.findByText("Please enter a valid email address, for example name@company.co.za"),
+    ).toBeInTheDocument();
   });
 });
