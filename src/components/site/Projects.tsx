@@ -147,7 +147,7 @@ export const Projects = () => {
       <div className="container">
         <div className="max-w-2xl mb-16">
           <TitleSpace />
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold uppercase text-foreground text-balance">
+          <h2 className="font-display text-heading sm:text-5xl lg:text-7xl font-bold uppercase text-foreground text-balance">
             Solar <span className="text-accent">projects</span>
           </h2>
           <p className="mt-5 text-lg text-muted-foreground">

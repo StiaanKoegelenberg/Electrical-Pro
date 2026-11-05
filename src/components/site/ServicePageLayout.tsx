@@ -82,7 +82,7 @@ export const ServicePageLayout = ({
         <div className="container grid lg:grid-cols-2 gap-12 lg:gap-20">
           <div>
             <TitleSpace />
-            <h2 className="font-display text-3xl sm:text-4xl font-bold uppercase text-foreground text-balance">
+            <h2 className="font-display text-[2.7rem] leading-none lg:text-[3.6rem] font-bold uppercase text-foreground text-balance">
               Built around your needs
             </h2>
             <p className="mt-6 text-lg text-muted-foreground leading-relaxed whitespace-pre-line">

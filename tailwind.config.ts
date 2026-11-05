@@ -18,6 +18,16 @@ export default {
         // Buttons keep the site's original Inter; index.html loads only the weight they use (600)
         button: ['"Inter"', "system-ui", "sans-serif"],
       },
+      fontSize: {
+        // Section titles on phones (text-heading sm:text-5xl lg:text-7xl): they grow with the screen, from 36px
+        // on the smallest to their tablet size of 48px from about 430px wide. Sized so "In our clients' words"
+        // just fills the width on one line (it's 7.43 times as wide as its font size; the container's
+        // padding is 48px in all)
+        heading: ["clamp(2.25rem, calc((100vw - 48px) / 7.6), 3rem)", { lineHeight: "1" }],
+        // The other section titles, a fifth larger than those at every size (text-heading-lg sm:text-[3.6rem]
+        // lg:text-[5.4rem]): all but "Solar projects" and "In our clients' words"
+        "heading-lg": ["clamp(2.7rem, calc((100vw - 48px) / 7.6 * 1.2), 3.6rem)", { lineHeight: "1" }],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

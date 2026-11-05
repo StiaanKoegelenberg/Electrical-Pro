@@ -142,7 +142,7 @@ export const ContactSection = () => {
             transition={{ duration: 0.6 }}
           >
             <TitleSpace />
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold uppercase text-white text-balance">
+            <h2 className="font-display text-heading-lg sm:text-[3.6rem] lg:text-[5.4rem] font-bold uppercase text-white text-balance">
               Let's power your <span className="text-accent">next project</span>
             </h2>
             <p className="mt-6 text-lg text-white/70">

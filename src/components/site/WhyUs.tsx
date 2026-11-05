@@ -32,7 +32,7 @@ export const WhyUs = () => {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           <div>
             <TitleSpace />
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold uppercase text-foreground text-balance">
+            <h2 className="font-display text-heading-lg sm:text-[3.6rem] lg:text-[5.4rem] font-bold uppercase text-foreground text-balance">
               Built on trust <br />
               <span className="text-accent">Powered by craft</span>
             </h2>

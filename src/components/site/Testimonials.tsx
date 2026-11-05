@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
@@ -97,11 +97,9 @@ const Review = ({ quote, name }: (typeof reviews)[number]) => (
 // rows of them, in a strip as wide as the page that fades out on the right and back in on the left. The
 // strip holds COPIES copies of the reviews and moves one copy's width a loop (drift-right in
 // tailwind.config.ts), so the copies take each other's places without a seam; three cover screens up to
-// about 2,500px wide. It stops while the mouse is moved over it, so a review can be read in place, and
-// starts again when the mouse leaves or the page scrolls. Not on hover alone: scrolling the page with the
-// mouse still would stop it as it passed under the pointer, and on phones a tap leaves it "hovered", so
-// it would stay stopped; touches never stop it. Where the visitor's device asks for less motion it stays
-// still, one copy you can scroll along.
+// about 2,500px wide. The mouse doesn't touch it: it never stops, and the pointer passes straight through
+// to the section behind. Where the visitor's device asks for less motion it stays still, one copy you can
+// scroll along.
 const COPIES = 3;
 const SPEED = 28; // px a second, slow enough to read as it goes
 
@@ -177,18 +175,7 @@ const layOut = (heights: number[], scale: number) => {
 
 export const Testimonials = () => {
   const scale = useMediaQuery("(min-width: 640px)") ? 1 : SMALL;
-  const stripRef = useRef<HTMLDivElement>(null);
   const copyRef = useRef<HTMLDivElement>(null);
-  // Set straight on the strip, so stopping and starting doesn't re-render the reviews
-  const setStopped = (stopped: boolean) => {
-    if (stripRef.current) stripRef.current.style.animationPlayState = stopped ? "paused" : "";
-  };
-
-  useEffect(() => {
-    const start = () => setStopped(false);
-    window.addEventListener("scroll", start, { passive: true });
-    return () => window.removeEventListener("scroll", start);
-  }, []);
 
   // Each review's height at its width, measured from the first copy, and again whenever one changes (say
   // when the font arrives)
@@ -213,13 +200,15 @@ export const Testimonials = () => {
   return (
     // A band of its own in the light grey-blue (like Why Us), between the white Solar projects section and the
     // dark contact section
-    <section className="py-24 lg:py-32 bg-secondary">
+    // The title and reviews sit higher than the other sections' content, by about a tenth of the section's
+    // height (64px, 70px on desktop), so the top padding is that much less than theirs (py-24 lg:py-32)
+    <section className="pt-8 pb-24 lg:pt-[58px] lg:pb-32 bg-secondary">
       <div className="container">
-        {/* Raised by about a tenth of the section's height (64px, 70px on desktop) above where the padding
-            would put it; the reviews stay where they are */}
-        <div className="relative -top-16 lg:-top-[70px] max-w-2xl mb-16">
+        <div className="max-w-2xl mb-16">
           <TitleSpace />
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold uppercase text-foreground text-balance">
+          {/* On phones, as every section title does (text-heading in tailwind.config.ts), it grows with the
+              screen: this one just fills the width on one line */}
+          <h2 className="font-display text-heading sm:text-5xl lg:text-7xl font-bold uppercase text-foreground text-balance">
             In our <span className="text-accent">clients' words</span>
           </h2>
         </div>
@@ -233,15 +222,10 @@ export const Testimonials = () => {
         className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)] motion-reduce:overflow-x-auto motion-reduce:[mask-image:none]"
       >
         <div
-          ref={stripRef}
-          className="flex w-max animate-drift-right motion-reduce:animate-none"
+          // The mouse passes straight through (see COPIES)
+          className="pointer-events-none flex w-max animate-drift-right motion-reduce:animate-none"
           // A loop's length from the copy's width, so the speed is the same on any screen
           style={{ animationDuration: `${layout.width / SPEED}s` }}
-          // Only a mouse that actually moves: the page scrolling under a still pointer doesn't count
-          onPointerMove={(e) => {
-            if (e.pointerType === "mouse" && (e.movementX || e.movementY)) setStopped(true);
-          }}
-          onPointerLeave={() => setStopped(false)}
         >
           {Array.from({ length: COPIES }, (_, copy) => (
             // Only the first copy is read out by screen readers

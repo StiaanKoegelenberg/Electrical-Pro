@@ -27,7 +27,7 @@ export const FeaturedProject = () => {
             transition={{ duration: 0.6 }}
           >
             <TitleSpace />
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold uppercase text-white text-balance">
+            <h2 className="font-display text-heading-lg sm:text-[3.6rem] lg:text-[5.4rem] font-bold uppercase text-white text-balance">
               Solar built for the <span className="text-accent">Garden Route sun</span>
             </h2>
             <p className="mt-6 text-lg text-white/80 max-w-xl">
