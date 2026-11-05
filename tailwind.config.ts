@@ -92,11 +92,19 @@ export default {
           "0%": { opacity: "0", transform: "translateY(20px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        // The reviews' strip (Testimonials.tsx), which holds three copies of the reviews: rightwards by
+        // one copy's width, so each copy ends where the next began and the loop has no seam
+        "drift-right": {
+          from: { transform: "translateX(calc(-100% / 3))" },
+          to: { transform: "translateX(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-up": "fade-up 0.6s cubic-bezier(0.4, 0, 0.2, 1) both",
+        // Its length is set on the strip itself, from its width, to keep a steady speed
+        "drift-right": "drift-right 60s linear infinite",
       },
     },
   },

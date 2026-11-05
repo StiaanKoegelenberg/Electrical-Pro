@@ -123,6 +123,23 @@
 }
 
 @layer utilities {
+  /* A highlighter-pen stroke behind words (the reviews, Testimonials.tsx), after the Basecamp quotes
+     the client chose, in the site's blue; the stroke itself is drawn in assets/highlighter.svg (and
+     highlighter-dark.svg, in the Send Message button's blues, for the dark theme). The ink comes in softly,
+     is strongest just after the start and pales along the line, the edges are feathered, and the pen
+     lifts away at the end. Each line of a highlight is its own stroke (box-decoration-break: clone), so
+     the next line starts strong again, and each starts and ends a hair beyond its words, as a hand
+     would draw it (the padding, cancelled out by the margin so the words don't move). */
+  .highlighter {
+    background: url("./assets/highlighter.svg") no-repeat 0 0 / 100% 100%;
+    padding-inline: 0.12em;
+    margin-inline: -0.12em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  .dark .highlighter {
+    background-image: url("./assets/highlighter-dark.svg");
+  }
   .bg-gradient-hero { background-image: var(--gradient-hero); }
   .bg-gradient-electric { background-image: var(--gradient-electric); }
   .bg-gradient-dark { background: var(--gradient-dark); }

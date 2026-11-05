@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+  <!-- The highlighter stroke (highlighter.svg) for the dark theme: the same shape and fade in the blues of the
+       Send Message button (bg-gradient-electric), deeper blue where the pen lands, shading lighter along the
+       stroke as the button does. Strong enough to read as the button's blue, and no stronger, so the white
+       words on it stay easy to read -->
+  <defs>
+    <linearGradient id="ink">
+      <stop offset="0" stop-color="#1f8fff" stop-opacity=".4"/>
+      <stop offset=".03" stop-color="#1f8fff" stop-opacity=".8"/>
+      <stop offset=".12" stop-color="#2194ff" stop-opacity=".74"/>
+      <stop offset=".4" stop-color="#27a1ff" stop-opacity=".54"/>
+      <stop offset=".65" stop-color="#2cacff" stop-opacity=".42"/>
+      <stop offset=".9" stop-color="#31b7ff" stop-opacity=".3"/>
+      <stop offset="1" stop-color="#33bbff" stop-opacity=".15"/>
+    </linearGradient>
+    <linearGradient id="feather" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".4"/>
+      <stop offset=".1" stop-color="#fff"/>
+      <stop offset=".45" stop-color="#fff" stop-opacity=".95"/>
+      <stop offset=".88" stop-color="#fff" stop-opacity=".78"/>
+      <stop offset="1" stop-color="#fff" stop-opacity=".4"/>
+    </linearGradient>
+    <mask id="soft">
+      <rect width="100" height="100" fill="url(#feather)"/>
+    </mask>
+  </defs>
+  <path d="M0 3 C30 1.5 62 5.5 100 8 V20 C99 45 97 82 92 94 C62 95.5 30 98.5 0 99 Z" fill="url(#ink)" mask="url(#soft)"/>
+</svg>
