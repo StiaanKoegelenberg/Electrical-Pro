@@ -155,7 +155,7 @@ export const ContactSection = () => {
                 { icon: Phone, label: "Call us", value: PHONE.display, href: PHONE.href },
                 { icon: Mail, label: "Email", value: EMAIL, href: `mailto:${EMAIL}` },
                 { icon: MapPin, label: "Location", value: "Garden Route, South Africa" },
-                { icon: Clock, label: "Hours", value: "Mon–Fri 07:30 – 17:00" },
+                { icon: Clock, label: "Hours", value: "Mon–Fri 07:30–17:00" },
               ].map((c) => (
                 <div key={c.label} className="flex items-start gap-4">
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-white/5 border border-white/10">
@@ -187,7 +187,7 @@ export const ContactSection = () => {
               </div>
               <div className="flex-1">
                 <div className="text-sm font-bold uppercase tracking-wider text-accent">
-                  24 Hour Emergency Services
+                  24-Hour Emergency Services
                 </div>
                 <p className="mt-1 text-sm text-white/80 leading-snug">
                   Available 24/7 — we're here when you need us most.

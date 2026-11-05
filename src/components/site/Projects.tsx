@@ -20,16 +20,16 @@ const projects = [
     alt: "Rows of ground-mounted solar panels at Lancewood Dairy",
     system: { inverterName: "Hybrid inverter", inverter: "200 kW", solar: "200 kWp", battery: "400 kWh" },
     summary:
-      "The dairy used to fall back on a generator through load-shedding. Its milking machines, cooling and other equipment now run on a 200 kWp solar plant, with a Freedom Won battery storing the surplus and two Atess HPS100 inverters supplying the farm. The existing generator stays on as back-up and runs far less, cutting fuel and maintenance costs.",
+      "The dairy used to fall back on a generator through load-shedding. Its milking machines, cooling and other equipment now run on a 200 kWp solar plant, with a Freedom Won battery storing the surplus and two ATESS HPS100 inverters supplying the farm. The existing generator stays on as backup and runs far less, cutting fuel and maintenance costs.",
   },
   {
     name: "Nikwaflora",
-    setting: "Terranikwa flower farm, Outeniqua mountains",
+    setting: "Terranikwa flower farm, Outeniqua Mountains",
     image: nikwafloraImg,
     alt: "Aerial view of solar panels on a shed roof at Terranikwa flower farm",
     system: { inverterName: "Inverter", inverter: "90 kW", solar: "100 kWp", battery: "90 kWh" },
     summary:
-      "Terranikwa grows flowers on the southern slopes of the Outeniqua mountains and was facing high electricity bills and load-shedding. Its solar system cuts the farm's reliance on the grid, and the batteries carry production through outages and the night.",
+      "Terranikwa grows flowers on the southern slopes of the Outeniqua Mountains and was facing high electricity bills and load-shedding. Its solar system cuts the farm's reliance on the grid, and the batteries carry production through outages and the night.",
   },
 ];
 

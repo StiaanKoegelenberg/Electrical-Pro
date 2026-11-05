@@ -110,7 +110,7 @@ export const ServicePageLayout = ({
             {rentals && rentals.length > 0 && (
               <>
                 <div className="mt-8 font-display text-lg font-bold uppercase text-foreground">
-                  Rentals:
+                  Rentals
                 </div>
                 <ul className="mt-4 space-y-4">
                   {rentals.map((r) => (

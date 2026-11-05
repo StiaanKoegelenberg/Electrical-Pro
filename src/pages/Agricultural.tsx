@@ -9,20 +9,20 @@ const Agricultural = () => (
     body={`Farms don't stop. We understand the cost of downtime in dairy parlours, pump stations and pack-houses, so we build installations that are tough and serviceable.`}
     offerings={[
       "Dairy parlour electrical installations",
-      "Motors/gearboxes & Pump controls",
+      "Motors/gearboxes & pump controls",
       "Irrigation & borehole pump systems",
       "Solar pumping solutions",
       "Cold-room & pack-house electrics",
       "Standby generator integration",
       "Surge & lightning protection",
-      "Cable Fault Location",
-      "Variable Speed Drives (VSDs)",
-      "Device Remote Control",
-      "Power Analysis and Power Factor Correction",
+      "Cable fault location",
+      "Variable speed drives (VSDs)",
+      "Device remote control",
+      "Power analysis & power factor correction",
     ]}
     rentals={[
       "Ditch Witch for trenching",
-      "Cherry Pickers",
+      "Cherry pickers",
     ]}
   />
 );

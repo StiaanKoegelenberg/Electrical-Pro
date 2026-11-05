@@ -21,7 +21,7 @@ const reviews: { quote: string; name: string }[] = [
   },
   {
     quote:
-      "Thank you to Electrical Pro who worked with Garden Route Generator services to save the day - ==on a public holiday to get us up and running within a few hours.== We would recommend them to anyone. 5 star service.",
+      "Thank you to Electrical Pro who worked with Garden Route Generator services to save the day — ==on a public holiday to get us up and running within a few hours.== We would recommend them to anyone. 5-star service.",
     name: "Nan Jameson",
   },
   {
@@ -64,13 +64,13 @@ const reviews: { quote: string; name: string }[] = [
 // customer quotes): a highlighter-pen stroke behind the words (.highlighter in index.css), tight to the
 // first and last letters. It covers each line's letters rather than the whole line, so a highlight running
 // over several lines shows a thin gap between them, and each line's stroke starts strong again. The
-// highlighted words are a lighter grey than the rest in light mode (as light as stays easy to read on the
-// blue), and white in dark mode, to stand out clearly on the stroke's strong blue.
+// highlighted words are the site's dark navy in light mode (the headings' colour), darker than the grey
+// round them, and white in dark mode, to stand out clearly on the stroke's strong blue.
 const Highlighted = ({ text }: { text: string }) => (
   <>
     {text.split("==").map((part, k) =>
       k % 2 ? (
-        <mark key={k} className="highlighter text-[#5a6060] dark:text-white">
+        <mark key={k} className="highlighter text-foreground dark:text-white">
           {part}
         </mark>
       ) : (

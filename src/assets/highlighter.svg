@@ -1,19 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
   <!-- One stroke of a highlighter pen, stretched behind each line of highlighted words (.highlighter in
-       index.css). The shape and fade were measured from the client's Basecamp reference; the ink is the
-       site's electric blue (the accent colour), see-through like the glow round the 24 Hour Emergency
-       Services box -->
+       index.css). The shape was measured from the client's Basecamp reference; the ink is the site's
+       electric blue (the accent colour), see-through like the glow round the 24-Hour Emergency Services
+       box, and stronger and more even than the reference's, so the highlights stand out on the section's
+       light grey-blue -->
   <defs>
-    <!-- Along the stroke: the ink comes in over the first few px, is strongest just after, and pales to
-         about a third of that by the end -->
+    <!-- Along the stroke: the ink comes in over the first few px, is strongest just after, and pales only
+         gently, to about three fifths of that near the end, then fades as the pen lifts off -->
     <linearGradient id="ink">
-      <stop offset="0" stop-color="#1f8fff" stop-opacity=".24"/>
-      <stop offset=".03" stop-color="#1f8fff" stop-opacity=".48"/>
-      <stop offset=".12" stop-color="#1f8fff" stop-opacity=".44"/>
-      <stop offset=".4" stop-color="#1f8fff" stop-opacity=".3"/>
-      <stop offset=".65" stop-color="#1f8fff" stop-opacity=".23"/>
-      <stop offset=".9" stop-color="#1f8fff" stop-opacity=".16"/>
-      <stop offset="1" stop-color="#1f8fff" stop-opacity=".08"/>
+      <stop offset="0" stop-color="#1f8fff" stop-opacity=".34"/>
+      <stop offset=".03" stop-color="#1f8fff" stop-opacity=".62"/>
+      <stop offset=".12" stop-color="#1f8fff" stop-opacity=".58"/>
+      <stop offset=".4" stop-color="#1f8fff" stop-opacity=".5"/>
+      <stop offset=".65" stop-color="#1f8fff" stop-opacity=".44"/>
+      <stop offset=".9" stop-color="#1f8fff" stop-opacity=".38"/>
+      <stop offset="1" stop-color="#1f8fff" stop-opacity=".2"/>
     </linearGradient>
     <!-- Across it: soft top and bottom edges, and the upper half a little denser than the lower -->
     <linearGradient id="feather" x1="0" y1="0" x2="0" y2="1">

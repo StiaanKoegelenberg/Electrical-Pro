@@ -5,13 +5,13 @@ import { TitleSpace } from "./TitleSpace";
 const features = [
   {
     icon: Award,
-    title: "30+ Years Experience",
+    title: "30+ Years' Experience",
     desc: "Three decades of solving complex electrical challenges across the Garden Route.",
   },
   {
     icon: ShieldCheck,
     title: "Safety First",
-    desc: "Fully certified and COC compliant work.",
+    desc: "Fully certified and COC-compliant work.",
   },
   {
     icon: Wrench,
