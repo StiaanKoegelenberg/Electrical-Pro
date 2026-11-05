@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Mail, Phone, MapPin, Clock, Send, Zap } from "lucide-react";
@@ -65,6 +65,10 @@ export const ContactSection = () => {
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<Field, string | null>>>({});
   const [tried, setTried] = useState(false);
+  // When the visitor first clicked or tabbed into the form. How long ago that was goes with the enquiry,
+  // so contact.php can turn away anything sent within seconds of it (people take longer) or sent without
+  // it (posted straight to contact.php rather than through this page): both are bots.
+  const openedAt = useRef<number | null>(null);
 
   // Once the visitor has tried to send, a field's message clears (or changes) as they fix it
   const recheck = (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -92,10 +96,13 @@ export const ContactSection = () => {
     }
     setSubmitting(true);
     try {
+      const body = new FormData(form);
+      // In whole milliseconds; see openedAt
+      body.set("elapsed", String(openedAt.current === null ? 0 : Date.now() - openedAt.current));
       const res = await fetch(FORM_ENDPOINT, {
         method: "POST",
         headers: { Accept: "application/json" },
-        body: new FormData(form),
+        body,
       });
       const result = await res.json().catch(() => null);
       if (!res.ok || !result?.ok) throw new Error("Enquiry not sent");
@@ -104,6 +111,7 @@ export const ContactSection = () => {
         description: "Your message has been received. Expect a reply within 1 business day.",
       });
       form.reset();
+      openedAt.current = null;
       setErrors({});
       setTried(false);
     } catch {
@@ -205,6 +213,9 @@ export const ContactSection = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             onSubmit={handleSubmit}
             onChange={recheck}
+            onFocus={() => {
+              openedAt.current ??= Date.now();
+            }}
             noValidate
             className="scroll-mt-28 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 shadow-elevated"
           >
