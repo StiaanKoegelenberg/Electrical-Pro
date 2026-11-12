@@ -9,14 +9,18 @@ import { useToast } from "@/hooks/use-toast";
 import { EMAIL, PHONE } from "@/lib/contact";
 import { smoothScrollTo } from "@/lib/scroll";
 import { TitleSpace } from "./TitleSpace";
+import { Turnstile, type TurnstileHandle } from "./Turnstile";
 
-// Emails the enquiry to the office. PHP only runs on the live hosting, so in local dev every send
-// ends in the "didn't send" message.
-const FORM_ENDPOINT = "/contact.php";
+// Emails the enquiry to the office: the Azure function in api/src/functions/contact.js. It only runs on
+// Azure, so in local dev (npm run dev) every send ends in the "didn't send" message.
+const FORM_ENDPOINT = "/api/contact";
+
+// How long a send waits for the Turnstile check (see Turnstile.tsx) to finish, if it hasn't yet
+const TURNSTILE_WAIT_MS = 8000;
 
 // The form checks its required fields itself (it has noValidate) so visitors get these messages, in the
 // site's style, instead of the browser's plain pop-up. The browser still decides what's valid (required,
-// type="email"); a field of only spaces counts as empty, as contact.php sees it.
+// type="email"); a field of only spaces counts as empty, as the function sees it.
 const FIELDS = ["name", "email", "message"] as const;
 type Field = (typeof FIELDS)[number];
 const MESSAGES: Record<Field, { missing: string; invalid?: string }> = {
@@ -66,9 +70,10 @@ export const ContactSection = () => {
   const [errors, setErrors] = useState<Partial<Record<Field, string | null>>>({});
   const [tried, setTried] = useState(false);
   // When the visitor first clicked or tabbed into the form. How long ago that was goes with the enquiry,
-  // so contact.php can turn away anything sent within seconds of it (people take longer) or sent without
-  // it (posted straight to contact.php rather than through this page): both are bots.
+  // so the function can turn away anything sent within seconds of it (people take longer) or sent without
+  // it (posted straight to the function rather than through this page): both are bots.
   const openedAt = useRef<number | null>(null);
+  const turnstile = useRef<TurnstileHandle>(null);
 
   // Once the visitor has tried to send, a field's message clears (or changes) as they fix it
   const recheck = (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -96,6 +101,11 @@ export const ContactSection = () => {
     }
     setSubmitting(true);
     try {
+      // The check usually passes while the visitor is typing; if it hasn't yet, give it a few seconds
+      // (or the time to tick its box, if it asks) before sending
+      for (let waited = 0; !turnstile.current?.passed() && waited < TURNSTILE_WAIT_MS; waited += 250) {
+        await new Promise((r) => setTimeout(r, 250));
+      }
       const body = new FormData(form);
       // In whole milliseconds; see openedAt
       body.set("elapsed", String(openedAt.current === null ? 0 : Date.now() - openedAt.current));
@@ -122,6 +132,8 @@ export const ContactSection = () => {
         description: `Please call us on ${PHONE.display} or email ${EMAIL}.`,
       });
     } finally {
+      // Each pass works for one send only
+      turnstile.current?.reset();
       setSubmitting(false);
     }
   };
@@ -278,8 +290,9 @@ export const ContactSection = () => {
               />
               <FieldError id="contact-message-error" message={errors.message} />
             </div>
-            {/* Hidden from people; spam bots fill in every field, and contact.php drops anything with this one filled */}
+            {/* Hidden from people; spam bots fill in every field, and the function drops anything with this one filled */}
             <input type="text" name="website" autoComplete="off" className="hidden" />
+            <Turnstile ref={turnstile} />
             <Button
               type="submit"
               variant="hero"

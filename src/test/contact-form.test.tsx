@@ -38,6 +38,20 @@ describe("contact form", () => {
     // Its height: "auto" animations (the field messages) also put the scroll position back with
     // window.scrollTo, which jsdom doesn't have either
     vi.stubGlobal("scrollTo", vi.fn());
+    // Cloudflare's Turnstile script, already loaded and the visitor already passed
+    vi.stubGlobal("turnstile", {
+      render: (el: HTMLElement) => {
+        const pass = document.createElement("input");
+        pass.type = "hidden";
+        pass.name = "cf-turnstile-response";
+        pass.value = "turnstile-pass";
+        el.appendChild(pass);
+        return "widget";
+      },
+      getResponse: () => "turnstile-pass",
+      reset: vi.fn(),
+      remove: vi.fn(),
+    });
   });
   afterEach(() => vi.unstubAllGlobals());
 
@@ -50,7 +64,8 @@ describe("contact form", () => {
     expect(await screen.findByText("Thanks — we'll be in touch!")).toBeInTheDocument();
     const [url, init] = fetchMock.mock.calls[0];
     const sent = init.body as FormData;
-    expect(url).toBe("/contact.php");
+    expect(url).toBe("/api/contact");
+    expect(sent.get("cf-turnstile-response")).toBe("turnstile-pass");
     expect(sent.get("name")).toBe("Jan Smit");
     expect(sent.get("email")).toBe("jan@example.com");
     expect(sent.get("service")).toBe("EP Solar");

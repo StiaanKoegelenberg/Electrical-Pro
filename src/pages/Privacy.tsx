@@ -76,6 +76,11 @@ const Privacy = () => {
                 your IP address. Our hosting provider also keeps standard server logs, such as IP addresses and
                 the pages requested, to keep the site secure and running.
               </p>
+              <p>
+                To keep spam out, the enquiry form uses Cloudflare Turnstile, which checks that a person rather
+                than a bot is sending it. To do that, Cloudflare receives your IP address and some technical
+                details about your browser. It isn't used for advertising.
+              </p>
             </Section>
 
             <Section title="How we use it">
@@ -88,7 +93,8 @@ const Privacy = () => {
 
             <Section title="How we keep it">
               <p>
-                Enquiries from the form are sent by email to our office; the website itself doesn't store them.
+                Enquiries from the form are sent by email to our office, through an email delivery service
+                (Resend); the website itself doesn't store them.
                 We take reasonable steps to protect your information against loss and unauthorised access, and
                 keep it only for as long as we need it for the reason you gave it to us, or as the law requires.
               </p>

@@ -1,0 +1,9 @@
+{
+  "name": "electrical-pro-api",
+  "private": true,
+  "type": "module",
+  "main": "src/functions/*.js",
+  "dependencies": {
+    "@azure/functions": "^4.7.0"
+  }
+}
