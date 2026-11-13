@@ -25,6 +25,17 @@ const pageHeads = (): Plugin => ({
   },
 });
 
+// Keeps every build except the live site's out of search engines: staging, pull request previews, the
+// Cloudflare preview and local builds all get a noindex tag in every page. Only a build with
+// SITE_ENV=production (set by the Azure workflow for the main branch) leaves it out.
+const noindexUnlessProduction = (): Plugin => ({
+  name: "noindex-unless-production",
+  transformIndexHtml: (html) =>
+    process.env.SITE_ENV === "production"
+      ? html
+      : html.replace("</head>", `  <meta name="robots" content="noindex, nofollow" />\n  </head>`),
+});
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   server: {
@@ -34,7 +45,7 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
-  plugins: [react(), pageHeads(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react(), noindexUnlessProduction(), pageHeads(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

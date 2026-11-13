@@ -30,7 +30,25 @@ Its keys are settings on the Static Web App in the Azure portal (Settings → En
 
 ## Deploying
 
-The site is an Azure Static Web App (`electricalpro-preview`, Free plan, resource group `electricalpro-rg`). Every push to the `preview-ready` branch builds and deploys it through the GitHub Actions workflow in `.github/workflows/`. Its settings (page addresses, the API's Node version, headers) are in `public/staticwebapp.config.json`; remove the `X-Robots-Tag: noindex` header there when it becomes the live site.
+The site is an Azure Static Web App (`electricalpro-preview`, Free plan, resource group `electricalpro-rg`), deployed by the GitHub Actions workflows in `.github/workflows/`. Its settings (page addresses, the API's Node version, caching) are in `public/staticwebapp.config.json`.
+
+| Stage | Branch | Address |
+|---|---|---|
+| Dev | your own branch, or `npm run dev` | `http://localhost:8080`, plus a temporary preview address on each pull request (posted on the pull request) |
+| Staging | `dev` | `https://happy-flower-09933630f-dev.eastus2.3.azurestaticapps.net` |
+| Production | `main` | `https://happy-flower-09933630f.3.azurestaticapps.net`, and `electricalpro.co.za` once the domain points there |
+
+To release:
+
+1. Work on `dev` (or on a branch off it, merged into `dev` by pull request) and push. Staging updates in a couple of minutes.
+2. Check it on the staging address.
+3. On GitHub, open a pull request from `dev` into `main`. Once the Tests check passes, merge it, and production updates. `main` doesn't accept direct pushes.
+
+Only production is built with `SITE_ENV=production`. Every other build, including local ones and the Cloudflare preview, has a noindex tag in every page so search engines leave it alone (`vite.config.ts`).
+
+Each environment has its own settings in the Azure portal (Settings → Environment variables, then pick the environment). Staging's contact form sends to a test address (`CONTACT_TO`), so test enquiries don't reach the office. Pull request previews have no settings, so their contact form shows the "didn't send" message. Every address the form runs on has to be listed as a hostname on the Turnstile widget in Cloudflare.
+
+The Cloudflare Pages preview (`electricalpro-preview.pages.dev`) is separate and only changes when it's deployed by hand.
 
 The steps below are for the earlier plan of hosting on xneelo, kept for reference. The domain and email are still with the client's current provider; the MX and `mail` DNS records must not be changed while the email lives there.
 

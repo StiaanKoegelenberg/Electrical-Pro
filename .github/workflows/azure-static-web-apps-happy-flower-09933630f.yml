@@ -1,13 +1,22 @@
+# Builds and deploys the site to the Azure Static Web App (electricalpro-preview):
+#   push to main  -> production (the live site)
+#   push to dev   -> staging, at a fixed address with -dev in it
+#   pull request  -> a temporary preview address of its own, removed when the pull request closes
+# Only production is built with SITE_ENV=production; every other build tells search engines to stay
+# away (see noindexUnlessProduction in vite.config.ts). The Free plan allows 3 preview environments
+# at once (staging counts as one).
 name: Azure Static Web Apps CI/CD
 
 on:
   push:
     branches:
-      - preview-ready
+      - main
+      - dev
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
-      - preview-ready
+      - main
+      - dev
 
 jobs:
   build_and_deploy_job:
@@ -15,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: true
           lfs: false
@@ -24,14 +33,17 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_HAPPY_FLOWER_09933630F }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for GitHub integrations (i.e. PR comments)
           action: "upload"
-          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
+          production_branch: "main"
+          ###### Repository/Build Configurations ######
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "/" # App source code path
           api_location: "api" # Api source code path: the contact form's function
-          output_location: "dist" # Built app content directory - optional
+          output_location: "dist" # Built app content directory
           ###### End of Repository/Build Configurations ######
+        env:
+          SITE_ENV: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') && 'production' || 'staging' }}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'

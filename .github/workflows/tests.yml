@@ -1,0 +1,28 @@
+# Runs the tests, type check and a build on every pull request and every push to dev and main. The main
+# branch only accepts a pull request once this has passed (a branch protection rule on GitHub).
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  test:
+    name: Tests and build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npx tsc -p tsconfig.app.json --noEmit
+      - run: npm run build
