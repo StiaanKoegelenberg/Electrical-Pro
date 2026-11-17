@@ -229,7 +229,9 @@ export const ContactSection = () => {
               openedAt.current ??= Date.now();
             }}
             noValidate
-            className="scroll-mt-28 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 shadow-elevated"
+            // self-start: as tall as its fields need (growing as messages open under them), rather than
+            // stretching to the height of the contact details beside it
+            className="scroll-mt-28 self-start bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 shadow-elevated"
           >
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
