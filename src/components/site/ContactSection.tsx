@@ -11,9 +11,10 @@ import { smoothScrollTo } from "@/lib/scroll";
 import { TitleSpace } from "./TitleSpace";
 import { Turnstile, type TurnstileHandle } from "./Turnstile";
 
-// Emails the enquiry to the office: the Azure function in api/src/functions/contact.js. It only runs on
-// Azure, so in local dev (npm run dev) every send ends in the "didn't send" message.
-const FORM_ENDPOINT = "/api/contact";
+// Emails the enquiry to the office: the Azure function in api/src/functions/contact.js. On Azure it's on the
+// site's own address; the xneelo build (.env.xneelo) sends to the function's full Azure address instead. It
+// only runs on Azure, so in local dev (npm run dev) every send ends in the "didn't send" message.
+const FORM_ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT || "/api/contact";
 
 // How long a send waits for the Turnstile check (see Turnstile.tsx) to finish, if it hasn't yet
 const TURNSTILE_WAIT_MS = 8000;

@@ -27,11 +27,12 @@ const pageHeads = (): Plugin => ({
 
 // Keeps every build except the live site's out of search engines: staging, pull request previews, the
 // Cloudflare preview and local builds all get a noindex tag in every page. Only a build with
-// SITE_ENV=production (set by the Azure workflow for the main branch) leaves it out.
-const noindexUnlessProduction = (): Plugin => ({
+// SITE_ENV=production (set by the Azure workflow for the main branch) or the xneelo build
+// (npm run build:xneelo, which is always the live site) leaves it out.
+const noindexUnlessProduction = (live: boolean): Plugin => ({
   name: "noindex-unless-production",
   transformIndexHtml: (html) =>
-    process.env.SITE_ENV === "production"
+    live || process.env.SITE_ENV === "production"
       ? html
       : html.replace("</head>", `  <meta name="robots" content="noindex, nofollow" />\n  </head>`),
 });
@@ -45,7 +46,7 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
-  plugins: [react(), noindexUnlessProduction(), pageHeads(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react(), noindexUnlessProduction(mode === "xneelo"), pageHeads(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
